@@ -27,6 +27,7 @@ export class UsersService {
       where: {
         id,
       },
+      include: ['Orders']
     });
   }
 
