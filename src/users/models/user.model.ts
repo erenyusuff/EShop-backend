@@ -1,7 +1,9 @@
-import { Column, Model, Table, HasMany } from 'sequelize-typescript';
+import { Column, Model, Table, HasMany, Unique } from 'sequelize-typescript';
 import {Order} from '../../orders/models/order.model'
+
 @Table
 export class User extends Model {
+  @Unique
   @Column
   firstName: string;
 
@@ -18,7 +20,7 @@ export class User extends Model {
     sourceKey : 'userId',
     foreignKey: 'id'
   })
-  Users: Order[];
+  Orders: Order[];
 
 
 }
