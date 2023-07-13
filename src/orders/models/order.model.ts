@@ -1,4 +1,5 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import {Column, HasMany, Model, Table} from 'sequelize-typescript';
+import {Product} from "../../products/models/product.model";
 
 @Table
 export class Order extends Model {
@@ -6,11 +7,20 @@ export class Order extends Model {
     name: string;
 
     @Column
-    orderId: number;
+    userId: number;
 
     @Column
-    userId: number;
+    cartId: number;
+
+    @Column
+    price: number;
 
     @Column({ defaultValue: true })
     isActive: boolean;
+
+    @HasMany(() => Product,{
+        sourceKey : 'userId',
+        foreignKey: 'id'
+    })
+    Products: Product[];
 }

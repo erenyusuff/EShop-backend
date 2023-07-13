@@ -8,10 +8,9 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto): Promise<User> {
-    return this.usersService.create(createUserDto);
+ async create(@Body() model: CreateUserDto): Promise<User> {
+    return this.usersService.create(model);
   }
-
   @Get()
   findAll(): Promise<User[]> {
     return this.usersService.findAll();

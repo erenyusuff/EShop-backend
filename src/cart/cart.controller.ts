@@ -1,14 +1,14 @@
 import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { Sepet } from 'src/sepet/models/sepet.model';
-import { SepetService } from 'src/sepet/sepet.service';
-import {CreateSepetDto} from "./dto/create-sepet.dto";
+import { Sepet } from 'src/cart/models/cart.model';
+import { CartService } from 'src/cart/cart.service';
+import {CreateCartDto} from "./dto/create-cart.dto";
 
 @Controller('Sepet')
-export class SepetController {
-    constructor(private readonly sepetService: SepetService) {}
+export class CartController {
+    constructor(private readonly sepetService: CartService) {}
 
     @Post()
-    create(@Body() createSepetDto: CreateSepetDto): Promise<Sepet> {
+    create(@Body() createSepetDto: CreateCartDto): Promise<Sepet> {
         return this.sepetService.create(createSepetDto);
     }
 

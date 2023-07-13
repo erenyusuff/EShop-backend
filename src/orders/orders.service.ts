@@ -12,8 +12,10 @@ export class OrdersService {
      create(createOrderDto: CreateOrderDto): Promise<Order> {
          return this.orderModel.create({
            name: createOrderDto.name,
-             orderId: createOrderDto.orderId,
              userId: createOrderDto.userId,
+             cartId: createOrderDto.cartId,
+             price: createOrderDto.cartId
+
          });
        }
 
@@ -26,6 +28,7 @@ export class OrdersService {
             where: {
                 id,
             },
+            include: ['Products']
         });
     }
 

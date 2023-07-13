@@ -1,4 +1,4 @@
-export class CreateSepetDto {
+export class CreateCartDto {
     urunAdi: string;
     urunFiyat: string;
     urunId: number;

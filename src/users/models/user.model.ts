@@ -10,14 +10,11 @@ export class User extends Model {
   @Column
   lastName: string;
 
-  @Column
-  userId: number;
-
   @Column({ defaultValue: true })
   isActive: boolean;
 
   @HasMany(() => Order,{
-    sourceKey : 'userId',
+    sourceKey : 'id',
     foreignKey: 'id'
   })
   Orders: Order[];

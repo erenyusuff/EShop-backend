@@ -1,16 +1,16 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
-import { CreateSepetDto } from './dto/create-sepet.dto';
-import { Sepet } from './models/sepet.model';
+import { CreateCartDto } from './dto/create-cart.dto';
+import { Sepet } from './models/cart.model';
 
 @Injectable()
-export class SepetService {
+export class CartService {
     constructor(
         @InjectModel(Sepet)
         private readonly sepetModel: typeof Sepet,
     ) {}
 
-    create(createSepetDto: CreateSepetDto): Promise<Sepet> {
+    create(createSepetDto: CreateCartDto): Promise<Sepet> {
         return this.sepetModel.create({
             urunAdi: createSepetDto.urunAdi,
             urunFiyat: createSepetDto.urunFiyat,

@@ -8,8 +8,6 @@ export class Product extends Model {
     @Column
     productName: string;
 
-    @Column
-    productId: number;
 
     @Column({ defaultValue: true })
     isActive: boolean;

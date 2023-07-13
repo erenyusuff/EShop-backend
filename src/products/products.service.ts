@@ -13,7 +13,6 @@ export class ProductsService {
         return this.productModel.create({
             orderId : createProductDto.orderId,
             productName: createProductDto.productName,
-            productId: createProductDto.productId,
         });
     }
 

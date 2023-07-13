@@ -3,7 +3,7 @@ import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
 import  { OrdersModule } from './orders/orders.module'
 import { ProductsModule } from './products/products.module'
-import {SepetModule} from "./sepet/sepet.module";
+import {CartModule} from "./cart/cart.module";
 
 @Module({
   imports: [
@@ -17,7 +17,7 @@ import {SepetModule} from "./sepet/sepet.module";
       autoLoadModels: true,
       synchronize: true,
     }),
-    UsersModule,OrdersModule,ProductsModule,SepetModule
+    UsersModule,OrdersModule,ProductsModule,CartModule
   ],
 })
 export class AppModule {}

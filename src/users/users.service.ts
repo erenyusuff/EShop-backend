@@ -10,8 +10,12 @@ export class UsersService {
     private readonly userModel: typeof User,
   ) {}
 
-  async create(createUserDto: Partial <CreateUserDto>)
-  {return this.userModel.create(createUserDto)}
+  create(createUserDto: CreateUserDto): Promise<User> {
+    return this.userModel.create({
+      firstName: createUserDto.firstName,
+      lastName: createUserDto.lastName,
+    });
+  }
 
   async findAll(): Promise<User[]> {
     return this.userModel.findAll();
