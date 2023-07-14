@@ -1,20 +1,32 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
-import { CreateCartDto } from './dto/create-cart.dto';
-import { Cart } from './models/cart.model';
+import {Injectable} from '@nestjs/common';
+import {InjectModel} from '@nestjs/sequelize';
+import {CreateCartDto} from './dto/create-cart.dto';
+import {Cart} from './models/cart.model';
+import {CartProducts} from "./models/cart-products.model";
 
 @Injectable()
 export class CartService {
     constructor(
-        @InjectModel(Cart)
-        private readonly cartModel: typeof Cart,
-    ) {}
+        @InjectModel(Cart) private readonly cartModel: typeof Cart,
+        @InjectModel(CartProducts) private readonly cartProductsModel: typeof CartProducts,
+    ) {
+    }
 
-    create(model: CreateCartDto): Promise<Cart> {
-        return this.cartModel.create({
+    async create(model: CreateCartDto): Promise<Cart> {
+        const cart = await this.cartModel.create({
             totalPrice: model.totalPrice,
-            productId: model.productId,
         });
+
+        model.productIds.map(async item => {
+            console.log('productId', item);
+             await this.cartProductsModel.create({
+                cartId: cart.id,
+                productId: 2
+            });
+
+        });
+
+        return cart;
     }
 
     async findAll(): Promise<Cart[]> {

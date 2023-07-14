@@ -8,7 +8,15 @@ export class CartProducts extends Model {
     userId: number;
 
     @Column
-    totalPrice: number;
+    cartId: number;
+
+    @Column
+    productId: number;
+
+    @Column
+    price: number;
+
+
 
     @Column({ defaultValue: true })
     isActive: boolean;
