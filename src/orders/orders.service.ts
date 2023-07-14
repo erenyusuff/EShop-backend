@@ -11,7 +11,6 @@ export class OrdersService {
 
      create(createOrderDto: CreateOrderDto): Promise<Order> {
          return this.orderModel.create({
-           name: createOrderDto.name,
              userId: createOrderDto.userId,
              cartId: createOrderDto.cartId,
              price: createOrderDto.price

@@ -3,8 +3,6 @@ import {Product} from "../../products/models/product.model";
 
 @Table
 export class Order extends Model {
-    @Column
-    name: string;
 
     @Column
     userId: number;

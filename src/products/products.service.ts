@@ -11,7 +11,7 @@ export class ProductsService {
 
     create(createProductDto: CreateProductDto): Promise<Product> {
         return this.productModel.create({
-            orderId : createProductDto.orderId,
+           price: createProductDto.price,
             productName: createProductDto.productName,
         });
     }

@@ -5,13 +5,19 @@ import {User} from "../../users/models/user.model";
 export class CartProducts extends Model {
 
     @Column
-    cartId: number;
-
-    @Column
-    productId: number;
+    userId: number;
 
     @Column
     totalPrice: number;
+
+    @Column({ defaultValue: true })
+    isActive: boolean;
+
+    @HasMany(() => User,{
+        sourceKey: 'userId',
+        foreignKey: 'id'
+    })
+    urunler : User[];
 
 
 }

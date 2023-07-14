@@ -1,5 +1,4 @@
-import {Column, Model, Table, HasMany, BelongsToMany} from 'sequelize-typescript';
-import {User} from "../../users/models/user.model";
+import {BelongsToMany, Column, Model, Table} from 'sequelize-typescript';
 import {Product} from "../../products/models/product.model";
 import {CartProducts} from "./cart-products.model";
 
@@ -7,12 +6,15 @@ import {CartProducts} from "./cart-products.model";
 export class Cart extends Model {
 
     @Column
-    userId: number;
+    productId: number;
+
+    @Column
+    productIds: number;
 
     @Column
     totalPrice: number;
 
-    @Column({ defaultValue: true })
+    @Column({defaultValue: true})
     isActive: boolean;
 
     @BelongsToMany(() => Product, {

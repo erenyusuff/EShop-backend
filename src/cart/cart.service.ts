@@ -12,8 +12,8 @@ export class CartService {
 
     create(model: CreateCartDto): Promise<Cart> {
         return this.cartModel.create({
-           userId: model.userId,
             totalPrice: model.totalPrice,
+            productId: model.productId,
         });
     }
 

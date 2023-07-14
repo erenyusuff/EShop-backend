@@ -1,5 +1,12 @@
+import {IsNotEmpty} from 'class-validator';
+
+
 export class CreateProductDto {
-    orderId: number;
+
+    @IsNotEmpty()
+    price: number;
+
+    @IsNotEmpty()
     productName: string;
 
 }
