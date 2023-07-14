@@ -1,7 +1,8 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable} from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateUserDto } from './dto/create-user.dto';
 import { User } from './models/user.model';
+
 
 @Injectable()
 export class UsersService {
@@ -14,6 +15,10 @@ export class UsersService {
     return this.userModel.create({
       firstName: createUserDto.firstName,
       lastName: createUserDto.lastName,
+      email: createUserDto.email,
+      birthday: createUserDto.birthday,
+      memberGsmNumber: createUserDto.memberGsmNumber
+
     });
   }
 

@@ -1,5 +1,4 @@
 export class CreateCartDto {
-    urunAdi: string;
-    urunFiyat: string;
-    urunId: number;
+    userId: number;
+    totalPrice: number;
 }

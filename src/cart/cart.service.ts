@@ -1,38 +1,38 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/sequelize';
 import { CreateCartDto } from './dto/create-cart.dto';
-import { Sepet } from './models/cart.model';
+import { Cart } from './models/cart.model';
 
 @Injectable()
 export class CartService {
     constructor(
-        @InjectModel(Sepet)
-        private readonly sepetModel: typeof Sepet,
+        @InjectModel(Cart)
+        private readonly cartModel: typeof Cart,
     ) {}
 
-    create(createSepetDto: CreateCartDto): Promise<Sepet> {
-        return this.sepetModel.create({
-            urunAdi: createSepetDto.urunAdi,
-            urunFiyat: createSepetDto.urunFiyat,
-            urunId: createSepetDto.urunId,
+    create(model: CreateCartDto): Promise<Cart> {
+        return this.cartModel.create({
+           userId: model.userId,
+            totalPrice: model.totalPrice,
         });
     }
 
-    async findAll(): Promise<Sepet[]> {
-        return this.sepetModel.findAll();
+    async findAll(): Promise<Cart[]> {
+        return this.cartModel.findAll();
     }
 
-    findOne(id: string): Promise<Sepet> {
-        return this.sepetModel.findOne({
+    findOne(id: string): Promise<Cart> {
+        return this.cartModel.findOne({
             where: {
                 id,
             },
-            include: ['urunler']
+            include: ['products'],
+
         });
     }
 
     async remove(id: string): Promise<void> {
-        const sepet = await this.findOne(id);
-        await sepet.destroy();
+        const cart = await this.findOne(id);
+        await cart.destroy();
     }
 }

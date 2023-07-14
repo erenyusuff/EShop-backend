@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import {CartService} from "./cart.service";
 import {CartController} from "./cart.controller";
-import {Sepet} from "./models/cart.model";
+import {Cart} from "./models/cart.model";
+import {CartProducts} from "./models/cart-products.model";
 
 @Module({
-    imports: [SequelizeModule.forFeature([Sepet])],
+    imports: [SequelizeModule.forFeature([Cart,CartProducts])],
     providers: [CartService],
     controllers: [CartController],
 })

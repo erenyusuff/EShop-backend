@@ -14,7 +14,7 @@ export class OrdersService {
            name: createOrderDto.name,
              userId: createOrderDto.userId,
              cartId: createOrderDto.cartId,
-             price: createOrderDto.cartId
+             price: createOrderDto.price
 
          });
        }

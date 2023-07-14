@@ -1,23 +1,78 @@
-import { Column, Model, Table, HasMany, Unique } from 'sequelize-typescript';
-import {Order} from '../../orders/models/order.model'
+import {
+    Column,
+    CreatedAt,
+    DataType,
+    DeletedAt,
+    HasMany,
+    IsEmail,
+    Model,
+    Table,
+    Unique,
+    UpdatedAt,
+} from 'sequelize-typescript';
+import {Exclude, Expose} from 'class-transformer';
+import {Order} from "../../orders/models/order.model";
 
-@Table
+@Exclude()
+@Table({
+    tableName: 'Users',
+})
 export class User extends Model {
-  @Unique
-  @Column
-  firstName: string;
 
-  @Column
-  lastName: string;
+    @Expose()
+    @Column({
+        type: DataType.UUID,
+        defaultValue: DataType.UUIDV4,
+        primaryKey: true,
+    })
+    id: string;
 
-  @Column({ defaultValue: true })
-  isActive: boolean;
+    @Unique
+    @IsEmail
+    @Expose()
+    @Column
+    email: string;
 
-  @HasMany(() => Order,{
-    sourceKey : 'id',
-    foreignKey: 'id'
-  })
-  Orders: Order[];
+    @Column
+    password: string;
+
+    @Expose()
+    @Column({field: 'first_name'})
+    firstName: string;
+
+    @Expose()
+    @Column({field: 'last_name'})
+    lastName: string;
 
 
+    @Expose()
+    @Column(DataType.DATEONLY)
+    birthday: string;
+
+
+    @Expose()
+    @Column({type: DataType.BIGINT})
+    memberGsmNumber: number;
+
+    @CreatedAt
+    @Expose()
+    @Column({field: 'created_at'})
+    createdAt: Date;
+
+    @UpdatedAt
+    @Expose()
+    @Column({field: 'updated_at'})
+    updatedAt: Date;
+
+    @DeletedAt
+    @Expose()
+    @Column({field: 'deleted_at'})
+    deletedAt: Date;
+
+    @HasMany(() => Order,{
+        sourceKey : 'id',
+        foreignKey: 'id'
+    })
+    Orders: Order[];
 }
+

@@ -1,24 +1,25 @@
-import { Column, Model, Table, HasMany } from 'sequelize-typescript';
+import {Column, Model, Table, HasMany, BelongsToMany} from 'sequelize-typescript';
 import {User} from "../../users/models/user.model";
+import {Product} from "../../products/models/product.model";
+import {CartProducts} from "./cart-products.model";
 
 @Table
-export class Sepet extends Model {
-    @Column
-    urunAdi: string;
+export class Cart extends Model {
 
     @Column
-    urunFiyat: string;
+    userId: number;
 
-    @Column  urunId: number;
+    @Column
+    totalPrice: number;
 
     @Column({ defaultValue: true })
     isActive: boolean;
 
-    @HasMany(() => User,{
-        sourceKey: 'urunId',
-        foreignKey: 'id'
+    @BelongsToMany(() => Product, {
+        through: () => CartProducts,
+        foreignKey: 'cartId',
+        otherKey: 'productId',
     })
-   urunler : User[];
-
+    products: Product[];
 
 }
