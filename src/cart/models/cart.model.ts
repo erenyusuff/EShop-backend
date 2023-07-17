@@ -10,7 +10,7 @@ export class Cart extends Model {
     totalPrice: number;
 
     @Column
-    userId: string;
+    userId: number;
 
     @Column({defaultValue: true})
     isActive: boolean;

@@ -21,11 +21,10 @@ export class User extends Model {
 
     @Expose()
     @Column({
-        type: DataType.UUID,
-        defaultValue: DataType.UUIDV4,
         primaryKey: true,
+        autoIncrement: true,
     })
-    id: string;
+    id: number;
 
     @Unique
     @IsEmail

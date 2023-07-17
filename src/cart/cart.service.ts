@@ -16,20 +16,21 @@ export class CartService {
             // totalPrice: model.totalPrice,
         });
 
-        model.productIds.map(async item => {
+        const relations = model.productIds.map(item => {
             console.log('productId', item);
-             await this.cartProductsModel.create({
-                cartId: cart.id,
-                productId: item
-            });
+            return {
+              cartId: cart.id,
+              productId: item
+            };
         });
-console.log('cartID', cart.id);
+
+       await this.cartProductsModel.bulkCreate(relations);
+
 
         const foundModel =  await this.findOne(cart.id);
 
-         let total = 1;
+         let total = 0;
         foundModel.products.map(item=>{
-
              total = total + item.price;
          });
          foundModel.totalPrice = total;
