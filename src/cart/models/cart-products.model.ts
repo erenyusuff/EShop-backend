@@ -13,19 +13,8 @@ export class CartProducts extends Model {
     @Column
     productId: number;
 
-    @Column
-    price: number;
 
 
-
-    @Column({ defaultValue: true })
-    isActive: boolean;
-
-    @HasMany(() => User,{
-        sourceKey: 'userId',
-        foreignKey: 'id'
-    })
-    urunler : User[];
 
 
 }

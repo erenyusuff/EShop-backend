@@ -5,14 +5,12 @@ import {CartProducts} from "./cart-products.model";
 @Table
 export class Cart extends Model {
 
-    @Column
-    productId: number;
-
-    @Column
-    productIds: number;
 
     @Column
     totalPrice: number;
+
+    @Column
+    userId: string;
 
     @Column({defaultValue: true})
     isActive: boolean;
