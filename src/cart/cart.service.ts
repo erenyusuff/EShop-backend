@@ -7,7 +7,8 @@ import {CartProducts} from "./models/cart-products.model";
 @Injectable()
 export class CartService {
     constructor(
-        @InjectModel(Cart) private readonly cartModel: typeof Cart,
+        @InjectModel(Cart)
+        private readonly cartModel: typeof Cart,
         @InjectModel(CartProducts) private readonly cartProductsModel: typeof CartProducts,
     ) {
     }
@@ -60,4 +61,5 @@ export class CartService {
         const cart = await this.findOne(id);
         await cart.destroy();
     }
+
 }
