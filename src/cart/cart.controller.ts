@@ -3,7 +3,6 @@ import { Cart } from 'src/cart/models/cart.model';
 import { CartService } from 'src/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
-import { OrdersModule } from "../orders/orders.module";
 import {CreateOrderDto} from "../orders/dto/create-order.dto";
 import {OrdersService} from "../orders/orders.service";
 
@@ -11,7 +10,8 @@ import {OrdersService} from "../orders/orders.service";
 export class CartController {
     constructor(
         private readonly cartService: CartService,
-        private readonly ordersService:OrdersService) {}
+        private readonly ordersService:OrdersService
+    ) {}
 
     @Post()
     create(@Body() createCartDto: CreateCartDto): Promise<Cart> {
