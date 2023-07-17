@@ -1,5 +1,4 @@
-import { Column, Model, Table, HasMany} from 'sequelize-typescript';
-import {User} from "../../users/models/user.model";
+import {Column, Model, Table} from 'sequelize-typescript';
 
 @Table
 export class CartProducts extends Model {
@@ -12,9 +11,6 @@ export class CartProducts extends Model {
 
     @Column
     productId: number;
-
-
-
 
 
 }

@@ -1,5 +1,5 @@
-import {Column, HasMany, Model, Table} from 'sequelize-typescript';
-import {Product} from "../../products/models/product.model";
+import {Column, Model, Table} from 'sequelize-typescript';
+
 
 @Table
 export class Order extends Model {
@@ -13,7 +13,7 @@ export class Order extends Model {
     @Column
     price: number;
 
-    @Column({ defaultValue: true })
+    @Column({defaultValue: true})
     isActive: boolean;
 
 }

@@ -1,5 +1,5 @@
 export class CreateCartDto {
-    userId: string;
+    userId: number;
     totalPrice: number;
     productIds: number[];
 
