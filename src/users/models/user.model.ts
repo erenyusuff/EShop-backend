@@ -71,7 +71,7 @@ export class User extends Model {
 
     @HasMany(() => Order,{
         sourceKey : 'id',
-        foreignKey: 'id'
+        foreignKey: 'userId'
     })
     Orders: Order[];
 }

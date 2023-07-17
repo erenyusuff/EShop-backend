@@ -16,9 +16,4 @@ export class Order extends Model {
     @Column({ defaultValue: true })
     isActive: boolean;
 
-    @HasMany(() => Product,{
-        sourceKey : 'userId',
-        foreignKey: 'id'
-    })
-    Products: Product[];
 }
