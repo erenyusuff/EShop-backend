@@ -3,7 +3,7 @@ import {InjectModel} from '@nestjs/sequelize';
 import {CreateCartDto} from './dto/create-cart.dto';
 import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
-import { OrdersService } from '../orders/orders.service';
+import {OrdersService} from '../orders/orders.service';
 
 @Injectable()
 export class CartService {
@@ -64,13 +64,12 @@ export class CartService {
         await cart.destroy();
     }
 
-    buy(cartId: number) {
-        //GET cart
-
+    async buy(cartId: number) {
+        const cart = await this.findOne(cartId);
         return this.ordersService.create({
-            cartId: 1, // TODO buralari doldur
-            price: 0,
-            userId: 1,
+            cartId: cart.id,
+            price: cart.totalPrice,
+            userId: cart.userId,
         });
     }
 }

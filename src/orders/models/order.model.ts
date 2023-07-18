@@ -1,4 +1,5 @@
-import {Column, Model, Table} from 'sequelize-typescript';
+import {Column, HasMany, Model, Table} from 'sequelize-typescript';
+import {Cart} from "../../cart/models/cart.model";
 
 
 @Table
@@ -15,5 +16,6 @@ export class Order extends Model {
 
     @Column({defaultValue: true})
     isActive: boolean;
+
 
 }
