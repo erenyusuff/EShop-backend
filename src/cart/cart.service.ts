@@ -3,6 +3,7 @@ import {InjectModel} from '@nestjs/sequelize';
 import {CreateCartDto} from './dto/create-cart.dto';
 import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
+import { OrdersService } from '../orders/orders.service';
 
 @Injectable()
 export class CartService {
@@ -10,6 +11,7 @@ export class CartService {
         @InjectModel(Cart)
         private readonly cartModel: typeof Cart,
         @InjectModel(CartProducts) private readonly cartProductsModel: typeof CartProducts,
+        private readonly ordersService: OrdersService,
     ) {
     }
 
@@ -47,7 +49,7 @@ export class CartService {
         return this.cartModel.findAll();
     }
 
-    findOne(id: string): Promise<Cart> {
+    findOne(id: number): Promise<Cart> {
         return this.cartModel.findOne({
             where: {
                 id,
@@ -57,9 +59,18 @@ export class CartService {
         });
     }
 
-    async remove(id: string): Promise<void> {
+    async remove(id: number): Promise<void> {
         const cart = await this.findOne(id);
         await cart.destroy();
     }
 
+    buy(cartId: number) {
+        //GET cart
+
+        return this.ordersService.create({
+            cartId: 1, // TODO buralari doldur
+            price: 0,
+            userId: 1,
+        });
+    }
 }

@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
 import { SequelizeModule } from '@nestjs/sequelize';
 import { UsersModule } from './users/users.module';
-import  { OrdersModule } from './orders/orders.module'
-import { ProductsModule } from './products/products.module'
-import {CartModule} from "./cart/cart.module";
+import { OrdersModule } from './orders/orders.module';
+import { ProductsModule } from './products/products.module';
+import { CartModule } from './cart/cart.module';
 
 @Module({
   imports: [
@@ -11,13 +11,13 @@ import {CartModule} from "./cart/cart.module";
       dialect: 'mysql',
       host: '127.0.0.1',
       port: 3306,
-      username: 'root',
-      password: 'Yusuf4757',
+      username: 'tuncay',
+      password: 'Test123!!',
       database: 'test',
       autoLoadModels: true,
       synchronize: true,
     }),
-    UsersModule,OrdersModule,ProductsModule,CartModule
+    UsersModule, OrdersModule, ProductsModule, CartModule
   ],
 })
 export class AppModule {}

@@ -10,7 +10,6 @@ import {OrdersService} from "../orders/orders.service";
 export class CartController {
     constructor(
         private readonly cartService: CartService,
-        private readonly ordersService:OrdersService
     ) {}
 
     @Post()
@@ -18,8 +17,8 @@ export class CartController {
         return this.cartService.create(createCartDto);
     }
     @Put(':id/buy')
-    buy(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
-        return this.ordersService.create(createOrderDto);
+    buy(@Param('id') id: number): Promise<Order> { // bodye gerek yok sepet zaten belli
+        return this.cartService.buy(id);
     }
 
     @Get()
@@ -28,13 +27,13 @@ export class CartController {
     }
 
     @Get(':id')
-    findOne(@Param('id') id: string): Promise<Cart> {
+    findOne(@Param('id') id: number): Promise<Cart> {
         return this.cartService.findOne(id);
     }
 
 
     @Delete(':id')
-    remove(@Param('id') id: string): Promise<void> {
+    remove(@Param('id') id: number): Promise<void> {
         return this.cartService.remove(id);
     }
 }
