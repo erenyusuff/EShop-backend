@@ -18,8 +18,8 @@ export class UsersService {
             lastName: createUserDto.lastName,
             email: createUserDto.email,
             birthday: createUserDto.birthday,
-            memberGsmNumber: createUserDto.memberGsmNumber
-
+            memberGsmNumber: createUserDto.memberGsmNumber,
+            password: createUserDto.password
         });
     }
 

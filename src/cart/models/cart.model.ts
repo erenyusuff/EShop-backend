@@ -1,4 +1,4 @@
-import {BelongsToMany, Column, Model, Table} from 'sequelize-typescript';
+import {BelongsToMany, Column, HasMany, HasOne, Model, Table} from 'sequelize-typescript';
 import {Product} from "../../products/models/product.model";
 import {CartProducts} from "./cart-products.model";
 
@@ -21,5 +21,6 @@ export class Cart extends Model {
         otherKey: 'productId',
     })
     products: Product[];
+
 
 }

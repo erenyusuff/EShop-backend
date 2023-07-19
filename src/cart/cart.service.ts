@@ -1,4 +1,4 @@
-import {Inject, Injectable} from '@nestjs/common';
+import {BadRequestException, Inject, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateCartDto} from './dto/create-cart.dto';
 import {Cart} from './models/cart.model';
@@ -70,20 +70,27 @@ export class CartService {
 
 
     async buy(cartId: number) {
-        const cart = await this.findOne(cartId);
+            const cart = await this.findOne(cartId);
 
-        const cartStock: any = {};
-        cart.products.map(product => {
-            cartStock[product.id] = cartStock[product.id] ? cartStock[product.id] + 1 : 1;
-        });
 
-        console.log('alinan', cartStock);
-        return this.ordersService.create({
-            cartId: cart.id,
-            price: cart.totalPrice,
-            userId: cart.userId,
+            cart.products.map((product: any) => {
+                if (product.stock < product.CartProducts.quantity) {
+                    throw new BadRequestException('Something bad happened', { cause: new Error(), description: 'Some error description' })
+                }
+            })
 
-        });
+            let totalPrice = 0;
+            cart.products.map((item: any) => {
+                totalPrice += item.price * item.CartProducts.quantity;
+
+            });
+
+            return this.ordersService.create({
+                cartId: cart.id,
+                price: totalPrice,
+                userId: cart.userId,
+
+            });
 
     }
 }
