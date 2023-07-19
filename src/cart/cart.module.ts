@@ -5,13 +5,14 @@ import { CartController } from './cart.controller';
 import { Cart } from './models/cart.model';
 import { CartProducts } from './models/cart-products.model';
 import { OrdersModule } from '../orders/orders.module';
+import {Product} from "../products/models/product.model";
 
 @Module({
   imports: [
     SequelizeModule.forFeature([Cart, CartProducts]),
     OrdersModule
   ],
-  providers: [CartService],
+  providers: [CartService,{provide: 'ProductRepo', useValue:Product}],
   controllers: [CartController]
 })
 export class CartModule {}

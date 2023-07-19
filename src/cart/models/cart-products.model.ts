@@ -3,7 +3,10 @@ import {Column, Model, Table} from 'sequelize-typescript';
 @Table
 export class CartProducts extends Model {
 
-    @Column
+    @Column({
+        primaryKey: true,
+        autoIncrement: true,
+    })
     userId: number;
 
     @Column
@@ -12,5 +15,6 @@ export class CartProducts extends Model {
     @Column
     productId: number;
 
-
+    @Column
+    quantity: number;
 }

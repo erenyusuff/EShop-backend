@@ -1,11 +1,12 @@
-import { Body, Controller, Delete, Get, Param, Post } from '@nestjs/common';
-import { CreateOrderDto } from './dto/create-order.dto';
-import { Order } from './models/order.model';
-import { OrdersService } from './orders.service';
+import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
+import {CreateOrderDto} from './dto/create-order.dto';
+import {Order} from './models/order.model';
+import {OrdersService} from './orders.service';
 
 @Controller('orders')
 export class OrdersController {
-    constructor(private readonly ordersService: OrdersService) {}
+    constructor(private readonly ordersService: OrdersService) {
+    }
 
     @Post()
     create(@Body() createOrderDto: CreateOrderDto): Promise<Order> {

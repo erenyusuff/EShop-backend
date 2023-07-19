@@ -1,15 +1,18 @@
-import {Injectable} from '@nestjs/common';
+import {Inject, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateCartDto} from './dto/create-cart.dto';
 import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
 import {OrdersService} from '../orders/orders.service';
+import {Product} from "../products/models/product.model";
 
 @Injectable()
 export class CartService {
     constructor(
         @InjectModel(Cart)
         private readonly cartModel: typeof Cart,
+        @Inject('ProductRepo')
+        private readonly productModel: typeof Product,
         @InjectModel(CartProducts) private readonly cartProductsModel: typeof CartProducts,
         private readonly ordersService: OrdersService,
     ) {
@@ -20,11 +23,12 @@ export class CartService {
             userId: model.userId
         });
 
-        const relations = model.productIds.map(item => {
-            console.log('productId', item);
+        const relations = model.products.map(item => {
+            console.log('id', item);
             return {
                 cartId: cart.id,
-                productId: item,
+                quantity: item.quantity,
+                productId: item.productId,
             };
         });
 
@@ -67,13 +71,13 @@ export class CartService {
 
     async buy(cartId: number) {
         const cart = await this.findOne(cartId);
-        const productIds: any = cart.products.map((data: any) => {
-            return (data.CartProducts.productId)
-            const Stock = this.findOne(productIds)
-console.log(Stock)
-        })
-        console.log(productIds)
 
+        const cartStock: any = {};
+        cart.products.map(product => {
+            cartStock[product.id] = cartStock[product.id] ? cartStock[product.id] + 1 : 1;
+        });
+
+        console.log('alinan', cartStock);
         return this.ordersService.create({
             cartId: cart.id,
             price: cart.totalPrice,
