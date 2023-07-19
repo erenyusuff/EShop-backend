@@ -18,7 +18,7 @@ export class CartController {
     }
 
     @Put(':id/buy')
-    buy(@Param('id') id: number): Promise<Order> { // bodye gerek yok sepet zaten belli
+    buy(@Param('id') id: number): Promise<Order> {
         return this.cartService.buy(id);
     }
 

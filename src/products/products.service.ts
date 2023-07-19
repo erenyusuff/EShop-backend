@@ -13,6 +13,7 @@ export class ProductsService {
         return this.productModel.create({
            price: createProductDto.price,
             productName: createProductDto.productName,
+            stock: createProductDto.stock,
         });
     }
 

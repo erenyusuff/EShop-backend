@@ -9,4 +9,7 @@ export class CreateProductDto {
     @IsNotEmpty()
     productName: string;
 
+    @IsNotEmpty()
+    stock: number;
+
 }

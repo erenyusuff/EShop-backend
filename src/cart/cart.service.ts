@@ -64,12 +64,22 @@ export class CartService {
         await cart.destroy();
     }
 
+
     async buy(cartId: number) {
         const cart = await this.findOne(cartId);
+        const productIds: any = cart.products.map((data: any) => {
+            return (data.CartProducts.productId)
+            const Stock = this.findOne(productIds)
+console.log(Stock)
+        })
+        console.log(productIds)
+
         return this.ordersService.create({
             cartId: cart.id,
             price: cart.totalPrice,
             userId: cart.userId,
+
         });
+
     }
 }

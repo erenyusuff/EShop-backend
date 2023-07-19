@@ -8,5 +8,6 @@ export class Product extends Model {
     @Column
     price: number;
 
-
+     @Column
+     stock: number;
 }
