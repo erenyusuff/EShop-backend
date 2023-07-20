@@ -24,7 +24,7 @@ export class CartService {
         });
 
         const relations = model.products.map(item => {
-            console.log('id', item);
+            // console.log('id', item);
             return {
                 cartId: cart.id,
                 quantity: item.quantity,
@@ -33,19 +33,21 @@ export class CartService {
         });
 
         await this.cartProductsModel.bulkCreate(relations);
-
-
         const foundModel = await this.findOne(cart.id);
-
         let total = 0;
-        foundModel.products.map(item => {
-            total = total + item.price;
+        foundModel.cartProducts.map(item => {
+            total += item.product.price * item.quantity
+            console.log('item', item.product.price)
         });
         foundModel.totalPrice = total;
+        console.log('price', total);
+
         await foundModel.save();
+        // console.log(foundModel.toJSON())
+        // cart.
+        // foundModel;
 
         return foundModel;
-
     }
 
 
@@ -58,7 +60,10 @@ export class CartService {
             where: {
                 id,
             },
-            include: ['products', 'products'],
+            include: [{
+                association: 'cartProducts',
+                include: ['product']
+            }, {association: 'products'}],
 
         });
     }
@@ -84,27 +89,15 @@ export class CartService {
 
         //üsttekı filtreden geçtikten sonra sipariş buraya geliyor burada toplam fiyatını hesaplıyoruz
         let totalPrice = 0;
-        cart.products.map((item: any) => {
-            totalPrice += item.price * item.CartProducts.quantity;
-            console.log(item)
-        });
-        const cartStock: any = {};
-        cart.cartProducts.map(cartProduct => {
-        .update(
-                {
-                    stock: products.stock - cartProduct.quantity
-                },
-                {
-                    where: {product.stock},
-                    include: ['product']
-                }
-            );
+        cart.cartProducts.forEach(async (cartProduct: CartProducts) => {
+            totalPrice += cartProduct.product.price * cartProduct.quantity;
+            cartProduct.product.stock = cartProduct.product.stock - cartProduct.quantity;
 
-            //update stok on product
-            // set stok = stok - quant
-            // where idsi productID
+            await cartProduct.product.save();
         });
-        // Siparişi oluşturuyoruz buradan sonra order servise gidip buradan çektiğimiz verilerle order oluşturuyoruz
+
+
+        // buradan sonra order servise gidip buradan çektiğimiz verilerle order oluşturuyoruz
         return this.ordersService.create({
             cartId: cart.id,
             price: totalPrice,
@@ -112,3 +105,4 @@ export class CartService {
         });
     }
 }
+

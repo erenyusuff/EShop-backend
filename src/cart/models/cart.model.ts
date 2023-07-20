@@ -28,9 +28,4 @@ export class Cart extends Model {
     })
     cartProducts: CartProducts[];
 
-    @HasOne(() => Product, {
-        sourceKey: 'id',
-        foreignKey: 'productId'
-    })
-    product: Product;
 }

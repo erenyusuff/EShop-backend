@@ -1,13 +1,9 @@
-import {Column, Model, Table} from 'sequelize-typescript';
+import {Column, HasOne, Model, Table} from 'sequelize-typescript';
+import {Product} from "../../products/models/product.model";
 
 @Table
 export class CartProducts extends Model {
 
-    @Column({
-        primaryKey: true,
-        autoIncrement: true,
-    })
-    userId: number;
 
     @Column
     cartId: number;
@@ -17,4 +13,10 @@ export class CartProducts extends Model {
 
     @Column
     quantity: number;
+
+    @HasOne(() => Product, {
+        sourceKey: 'productId',
+        foreignKey: 'id'
+    })
+    product: Product;
 }
