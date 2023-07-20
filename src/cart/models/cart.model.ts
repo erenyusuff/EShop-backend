@@ -22,5 +22,15 @@ export class Cart extends Model {
     })
     products: Product[];
 
+    @HasMany(() => CartProducts, {
+        sourceKey: 'id',
+        foreignKey: 'cartId'
+    })
+    cartProducts: CartProducts[];
 
+    @HasOne(() => Product, {
+        sourceKey: 'id',
+        foreignKey: 'productId'
+    })
+    product: Product;
 }

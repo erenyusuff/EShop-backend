@@ -58,7 +58,7 @@ export class CartService {
             where: {
                 id,
             },
-            include: ['products'],
+            include: ['products', 'products'],
 
         });
     }
@@ -70,27 +70,45 @@ export class CartService {
 
 
     async buy(cartId: number) {
-            const cart = await this.findOne(cartId);
+        //Cartı çekiyoruz
+        const cart = await this.findOne(cartId);
+        // Üründen alınan miktar ürünün stoğuna eşit yada azsa kod devam ediyor eğer fazlaysa hata verdiriyoruz
+        cart.products.map((product: any) => {
+            if (product.stock < product.CartProducts.quantity) {
+                throw new BadRequestException('Something bad happened', {
+                    cause: new Error(),
+                    description: 'Some error description'
+                })
+            }
+        });
 
-
-            cart.products.map((product: any) => {
-                if (product.stock < product.CartProducts.quantity) {
-                    throw new BadRequestException('Something bad happened', { cause: new Error(), description: 'Some error description' })
+        //üsttekı filtreden geçtikten sonra sipariş buraya geliyor burada toplam fiyatını hesaplıyoruz
+        let totalPrice = 0;
+        cart.products.map((item: any) => {
+            totalPrice += item.price * item.CartProducts.quantity;
+            console.log(item)
+        });
+        const cartStock: any = {};
+        cart.cartProducts.map(cartProduct => {
+        .update(
+                {
+                    stock: products.stock - cartProduct.quantity
+                },
+                {
+                    where: {product.stock},
+                    include: ['product']
                 }
-            })
+            );
 
-            let totalPrice = 0;
-            cart.products.map((item: any) => {
-                totalPrice += item.price * item.CartProducts.quantity;
-
-            });
-
-            return this.ordersService.create({
-                cartId: cart.id,
-                price: totalPrice,
-                userId: cart.userId,
-
-            });
-
+            //update stok on product
+            // set stok = stok - quant
+            // where idsi productID
+        });
+        // Siparişi oluşturuyoruz buradan sonra order servise gidip buradan çektiğimiz verilerle order oluşturuyoruz
+        return this.ordersService.create({
+            cartId: cart.id,
+            price: totalPrice,
+            userId: cart.userId,
+        });
     }
 }
