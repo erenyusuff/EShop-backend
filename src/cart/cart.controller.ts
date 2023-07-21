@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Post, Put} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Put, Request} from '@nestjs/common';
 import {Cart} from 'src/cart/models/cart.model';
 import {CartService} from 'src/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
@@ -13,12 +13,14 @@ export class CartController {
     }
 
     @Post()
-    create(@Body() createCartDto: CreateCartDto): Promise<Cart> {
-        return this.cartService.create(createCartDto);
+    create(@Body() createCartDto: CreateCartDto, @Request() request): Promise<Cart> {
+        console.log('test', request.user)
+        return this.cartService.create(createCartDto, request);
+
     }
 
     @Put(':id/buy')
-    buy(@Param('id') id: number): Promise<Order|string> {
+    buy(@Param('id') id: number): Promise<Order | string> {
         return this.cartService.buy(id);
     }
 

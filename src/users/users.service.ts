@@ -11,7 +11,7 @@ export class UsersService {
     ) {
     }
 
-    create(createUserDto: CreateUserDto): Promise<User> {
+    register(createUserDto: CreateUserDto): Promise<User> {
         return this.userModel.create({
             userName: createUserDto.userName,
             firstName: createUserDto.firstName,

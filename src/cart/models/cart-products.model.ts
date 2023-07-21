@@ -4,6 +4,11 @@ import {Product} from "../../products/models/product.model";
 @Table
 export class CartProducts extends Model {
 
+    @Column({
+        primaryKey: true,
+        autoIncrement: true,
+    })
+    id: number;
 
     @Column
     cartId: number;

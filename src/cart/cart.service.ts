@@ -5,6 +5,8 @@ import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
 import {OrdersService} from '../orders/orders.service';
 import {Product} from "../products/models/product.model";
+import {Request} from "express";
+
 
 @Injectable()
 export class CartService {
@@ -18,9 +20,9 @@ export class CartService {
     ) {
     }
 
-    async create(model: CreateCartDto): Promise<Cart> {
+    async create(model: CreateCartDto,request : any): Promise<Cart> {
         const cart = await this.cartModel.create({
-            userId: model.userId
+             userId: request.user.userId
         });
 
         const relations = model.products.map(item => {
@@ -92,7 +94,6 @@ export class CartService {
         cart.cartProducts.forEach(async (cartProduct: CartProducts) => {
             totalPrice += cartProduct.product.price * cartProduct.quantity;
             cartProduct.product.stock = cartProduct.product.stock - cartProduct.quantity;
-
             await cartProduct.product.save();
         });
 
