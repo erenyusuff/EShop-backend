@@ -3,7 +3,6 @@ import {InjectModel} from '@nestjs/sequelize';
 import {CreateUserDto} from './dto/create-user.dto';
 import {User} from './models/user.model';
 
-
 @Injectable()
 export class UsersService {
     constructor(
@@ -14,6 +13,7 @@ export class UsersService {
 
     create(createUserDto: CreateUserDto): Promise<User> {
         return this.userModel.create({
+            userName: createUserDto.userName,
             firstName: createUserDto.firstName,
             lastName: createUserDto.lastName,
             email: createUserDto.email,
@@ -40,6 +40,14 @@ export class UsersService {
         const user = await this.findOne(id);
         await user.destroy();
 
+        console.log(user.toJSON())
+    }
 
+    async findOneByUserName(userName: string): Promise<User | undefined> {
+        return this.userModel.findOne({
+            where: {
+                userName,
+            }
+        });
     }
 }

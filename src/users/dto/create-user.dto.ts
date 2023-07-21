@@ -12,7 +12,10 @@ import {
 
 export class CreateUserDto {
 
-
+    @IsNotEmpty()
+    @MinLength(3)
+    @MaxLength(15)
+    readonly userName: string
     @IsNotEmpty()
     @IsEmail()
     readonly email: string;

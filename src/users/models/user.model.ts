@@ -12,6 +12,7 @@ import {
 } from 'sequelize-typescript';
 import {Exclude, Expose} from 'class-transformer';
 import {Order} from "../../orders/models/order.model";
+import {IsNotEmpty} from "class-validator";
 
 @Exclude()
 @Table({
@@ -25,6 +26,11 @@ export class User extends Model {
         autoIncrement: true,
     })
     id: number;
+
+    @Unique
+    @IsNotEmpty()
+    @Column
+    userName: string;
 
     @Unique
     @IsEmail

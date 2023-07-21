@@ -4,6 +4,7 @@ import { UsersModule } from './users/users.module';
 import { OrdersModule } from './orders/orders.module';
 import { ProductsModule } from './products/products.module';
 import { CartModule } from './cart/cart.module';
+import { AuthModule } from './auth/auth.module';
 
 @Module({
   imports: [
@@ -17,7 +18,7 @@ import { CartModule } from './cart/cart.module';
       autoLoadModels: true,
       synchronize: true,
     }),
-    UsersModule, OrdersModule, ProductsModule, CartModule
+    UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule
   ],
 })
 export class AppModule {}
