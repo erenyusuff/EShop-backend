@@ -3,6 +3,7 @@ import {Cart} from 'src/cart/models/cart.model';
 import {CartService} from 'src/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
+import {CartProducts} from "./models/cart-products.model";
 
 
 @Controller('Cart')
@@ -33,7 +34,6 @@ export class CartController {
     findOne(@Param('id') id: number): Promise<Cart> {
         return this.cartService.findOne(id);
     }
-
 
     @Delete(':id')
     remove(@Param('id') id: number): Promise<void> {

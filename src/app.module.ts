@@ -7,6 +7,7 @@ import { CartModule } from './cart/cart.module';
 import { AuthModule } from './auth/auth.module';
 import {AuthGuard} from "./auth/auth.guard";
 import {APP_GUARD} from "@nestjs/core";
+import { StatisticsModule } from './statistics/statistics.module';
 
 @Module({
   imports: [
@@ -21,7 +22,7 @@ import {APP_GUARD} from "@nestjs/core";
       synchronize: true,
     }
     ),
-    UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule,
+    UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule, StatisticsModule,
   ],
   providers: [
     {

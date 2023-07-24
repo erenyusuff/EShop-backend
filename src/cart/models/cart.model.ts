@@ -1,6 +1,7 @@
-import {BelongsToMany, Column, HasMany, HasOne, Model, Table} from 'sequelize-typescript';
+import {BelongsToMany, Column, DeletedAt, HasMany, Model, Table} from 'sequelize-typescript';
 import {Product} from "../../products/models/product.model";
 import {CartProducts} from "./cart-products.model";
+import {Expose} from "class-transformer";
 
 @Table
 export class Cart extends Model {
@@ -11,6 +12,11 @@ export class Cart extends Model {
 
     @Column
     userId: number;
+
+    @DeletedAt
+    @Expose()
+    @Column
+    deletedAt: Date;
 
     @Column({defaultValue: true})
     isActive: boolean;

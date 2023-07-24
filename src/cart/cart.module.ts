@@ -12,7 +12,7 @@ import {Product} from "../products/models/product.model";
     SequelizeModule.forFeature([Cart, CartProducts]),
     OrdersModule
   ],
-  providers: [CartService,{provide: 'ProductRepo', useValue:Product}],
+  providers: [CartService,{provide: 'ProductRepo', useValue:Product},{provide: 'CartProductRepo', useValue:CartProducts}],
   controllers: [CartController]
 })
 export class CartModule {}
