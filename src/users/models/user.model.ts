@@ -27,12 +27,10 @@ export class User extends Model {
     })
     id: number;
 
-    @Unique
     @IsNotEmpty()
     @Column
     userName: string;
 
-    @Unique
     @IsEmail
     @Expose()
     @Column
@@ -74,8 +72,8 @@ export class User extends Model {
     @Column({field: 'deleted_at'})
     deletedAt: Date;
 
-    @HasMany(() => Order,{
-        sourceKey : 'id',
+    @HasMany(() => Order, {
+        sourceKey: 'id',
         foreignKey: 'userId'
     })
     Orders: Order[];

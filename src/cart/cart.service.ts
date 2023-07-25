@@ -5,6 +5,7 @@ import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
 import {OrdersService} from '../orders/orders.service';
 import {Product} from "../products/models/product.model";
+import sequelize from "sequelize";
 
 
 @Injectable()
@@ -98,6 +99,17 @@ export class CartService {
             price: totalPrice,
             userId: cart.userId,
         });
+    }
+
+    async getCartProducts() {
+        return this.cartProductsModel.findAll({
+            include: ['product'],
+            attributes: [
+
+                [sequelize.fn('sum', sequelize.col('quantity')), 'buyed'],
+            ],
+            group: ['productId']
+        })
     }
 }
 

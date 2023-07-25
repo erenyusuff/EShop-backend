@@ -13,7 +13,8 @@ import {Product} from "../products/models/product.model";
     OrdersModule
   ],
   providers: [CartService,{provide: 'ProductRepo', useValue:Product},{provide: 'CartProductRepo', useValue:CartProducts}],
-  controllers: [CartController]
+  controllers: [CartController],
+  exports: [CartService]
 })
 export class CartModule {}
 

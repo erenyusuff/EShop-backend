@@ -3,7 +3,6 @@ import {Cart} from 'src/cart/models/cart.model';
 import {CartService} from 'src/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
-import {CartProducts} from "./models/cart-products.model";
 
 
 @Controller('Cart')

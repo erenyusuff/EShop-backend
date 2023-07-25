@@ -1,18 +1,22 @@
-import {Inject, Injectable} from '@nestjs/common';
-import {CartProducts} from "../cart/models/cart-products.model";
-import {Cart} from "../cart/models/cart.model";
+import {Injectable} from '@nestjs/common';
+import {CartService} from "../cart/cart.service";
 
 @Injectable()
 export class StatisticsService {
-    @Inject('CartProductRepo')
-    private readonly cartProductModel: typeof CartProducts
+
+    constructor(private readonly cartService: CartService) {
+    }
 
     async findAll(): Promise<any> {
-        const foundModel = await this.findAll();
-        let totalSold = 0;
-        foundModel.item.product.quantity.map(item => {
-            totalSold = item.product.quantity
-            console.log('sold', totalSold)
+        const cartProducts = await this.cartService.getCartProducts();
+        const productCounter = {cartProducts}
+        cartProducts.forEach(item => {
+            if (productCounter[item.product.id]) {
+                productCounter[item.product.id] += item.quantity
+            } else {
+                productCounter[item.product.id] = item.quantity;
+            }
         });
+        return productCounter;
     }
 }
