@@ -4,7 +4,9 @@ import {CartService} from "../cart/cart.service";
 @Injectable()
 export class StatisticsService {
 
-    constructor(private readonly cartService: CartService) {
+    constructor(
+        private readonly cartService: CartService,
+    ) {
     }
 
     async findAll(): Promise<any> {
@@ -27,4 +29,10 @@ export class StatisticsService {
         });
         return productCounter
     }
+
+    async findUsersTotal(): Promise<any> {
+        const total = await this.cartService.findUsersTotal()
+return this.cartService.findUsersTotal()
+    }
 }
+

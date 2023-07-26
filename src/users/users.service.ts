@@ -48,7 +48,14 @@ export class UsersService {
             where: {
                 id,
             },
-            include: ['Orders']
+            include: [{
+                association: 'Orders',
+                include: [{
+                    association: 'cart',
+                    include: ['cartProducts']
+                }]
+            }]
+
         });
     }
 
@@ -66,4 +73,19 @@ export class UsersService {
             }
         });
     }
+
+    // UploadRelations(id: string): Promise<User> {
+    //     return this.userModel.findOne({
+    //         where: {
+    //             id,
+    //         },
+    //         include: [{
+    //             association: 'Orders',
+    //             include: [{
+    //                 association: 'cart',
+    //                 include: ['cartProducts']
+    //             }]
+    //         }]
+    //     });
+    // }
 }

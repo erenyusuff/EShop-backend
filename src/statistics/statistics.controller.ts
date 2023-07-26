@@ -15,4 +15,10 @@ export class StatisticsController {
     findAll(): Promise<Cart> {
         return this.statisticsService.findAll();
     }
+
+    @Public()
+    @Get('topspenders')
+    findByMBPU(): Promise<any> {
+        return this.statisticsService.findUsersTotal()
+    }
 }

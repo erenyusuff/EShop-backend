@@ -82,17 +82,14 @@ export class CartService {
                 })
             }
         });
-
-
         let totalPrice = 0;
         cart.cartProducts.forEach((cartProduct: CartProducts) => {
             totalPrice += cartProduct.product.price * cartProduct.quantity;
             cartProduct.product.stock = cartProduct.product.stock - cartProduct.quantity;
-            cartProduct.product.save();
-            cart.destroy()
             cart.isActive = false
+            cart.save();
+            cartProduct.product.save();
         });
-
 
         return this.ordersService.create({
             cartId: cart.id,
@@ -110,5 +107,15 @@ export class CartService {
             group: ['productId']
         })
     }
+
+    async findUsersTotal() {
+        return this.cartModel.findAll({
+            attributes: [
+                [sequelize.fn('sum', sequelize.col('totalPrice')), 'TotalSpend'],
+            ],
+            group: ['userId'],
+        })
+    }
 }
+
 
