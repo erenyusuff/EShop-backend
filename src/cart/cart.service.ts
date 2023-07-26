@@ -85,10 +85,10 @@ export class CartService {
 
 
         let totalPrice = 0;
-        cart.cartProducts.forEach(async (cartProduct: CartProducts) => {
+        cart.cartProducts.forEach((cartProduct: CartProducts) => {
             totalPrice += cartProduct.product.price * cartProduct.quantity;
             cartProduct.product.stock = cartProduct.product.stock - cartProduct.quantity;
-            await cartProduct.product.save();
+            cartProduct.product.save();
             cart.destroy()
             cart.isActive = false
         });
@@ -105,7 +105,6 @@ export class CartService {
         return this.cartProductsModel.findAll({
             include: ['product'],
             attributes: [
-
                 [sequelize.fn('sum', sequelize.col('quantity')), 'buyed'],
             ],
             group: ['productId']

@@ -26,11 +26,11 @@ export class User extends Model {
         autoIncrement: true,
     })
     id: number;
-
+    @Unique
     @IsNotEmpty()
     @Column
     userName: string;
-
+    @Unique
     @IsEmail
     @Expose()
     @Column
@@ -52,7 +52,7 @@ export class User extends Model {
     @Column(DataType.DATEONLY)
     birthday: string;
 
-
+    @Unique
     @Expose()
     @Column({type: DataType.BIGINT})
     memberGsmNumber: number;
