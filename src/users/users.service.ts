@@ -2,8 +2,9 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateUserDto} from './dto/create-user.dto';
 import {User} from './models/user.model';
-import {createCipheriv, randomBytes, scrypt} from 'crypto';
-import {promisify} from 'util';
+import * as bcrypt from 'bcrypt';
+
+
 
 @Injectable()
 export class UsersService {
@@ -13,35 +14,38 @@ export class UsersService {
     ) {
     }
 
-    register(createUserDto: CreateUserDto): Promise<User> {
+    async register(createUserDto: CreateUserDto): Promise<User> {
+        const saltRounds = 10;
+        const hashedPassword = await bcrypt.hash(createUserDto.password, saltRounds);
+    
         return this.userModel.create({
-            userName: createUserDto.userName,
-            firstName: createUserDto.firstName,
-            lastName: createUserDto.lastName,
-            email: createUserDto.email,
-            birthday: createUserDto.birthday,
-            memberGsmNumber: createUserDto.memberGsmNumber,
-            password: createUserDto.password
+          userName: createUserDto.userName,
+          firstName: createUserDto.firstName,
+          lastName: createUserDto.lastName,
+          email: createUserDto.email,
+          birthday: createUserDto.birthday,
+          memberGsmNumber: createUserDto.memberGsmNumber,
+          password: hashedPassword, // Şifrelenmiş parolayı kaydetdiyoruz
         });
-    }
+      }
 
     async findAll(): Promise<User[]> {
         return this.userModel.findAll();
     }
 
-    async findqwe(): Promise<any> {
-        const iv = randomBytes(16);
-        const password = 'Password used to generate key';
-        const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
-        const cipher = createCipheriv('aes-256-ctr', key, iv);
+    // async findqwe(): Promise<any> {
+    //     const iv = randomBytes(16);
+    //     const password = 'Password used to generate key';
+    //     const key = (await promisify(scrypt)(password, 'salt', 32)) as Buffer;
+    //     const cipher = createCipheriv('aes-256-ctr', key, iv);
 
-        const textToEncrypt = 'Yusuf';
-        const encryptedText = Buffer.concat([
-            cipher.update(textToEncrypt),
-            cipher.final(),
-        ]);
-        return encryptedText
-    }
+    //     const textToEncrypt = 'Yusuf';
+    //     const encryptedText = Buffer.concat([
+    //         cipher.update(textToEncrypt),
+    //         cipher.final(),
+    //     ]);
+    //     return encryptedText
+    // }
 
     findOne(id: string): Promise<User> {
         return this.userModel.findOne({
