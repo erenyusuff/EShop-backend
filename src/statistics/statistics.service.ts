@@ -10,6 +10,7 @@ export class StatisticsService {
     }
 
     async findAll(): Promise<any> {
+        // sequelize version: return this.cartService.getCartProducts()
         const cartProducts = await this.cartService.getCartProducts();
         let totalrevenue = {}
         const productCounter = {cartProducts, totalrevenue};
@@ -31,8 +32,18 @@ export class StatisticsService {
     }
 
     async findUsersTotal(): Promise<any> {
-        const total = await this.cartService.findUsersTotal()
-return this.cartService.findUsersTotal()
+        // const total = await this.cartService.findUsersTotal()
+        return this.cartService.findUsersTotal()
+    }
+
+    async w(): Promise<any> {
+        const cartProducts = await this.cartService.w();
+        cartProducts.forEach(item => {
+                // console.log('Cart Id', item.cartId == 4, 'product Id', item.productId, 'sold', item.quantity, item.product.productName)
+console.log(item.productId == 1, item.cartId, item.dataValues.quantity)
+
+            }
+        )
     }
 }
 

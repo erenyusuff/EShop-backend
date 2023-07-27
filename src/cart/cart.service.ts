@@ -112,8 +112,15 @@ export class CartService {
         return this.cartModel.findAll({
             attributes: [
                 [sequelize.fn('sum', sequelize.col('totalPrice')), 'TotalSpend'],
+                'userId'
             ],
             group: ['userId'],
+        })
+    }
+
+    async w() {
+        return this.cartProductsModel.findAll({
+            include: ['product']
         })
     }
 }

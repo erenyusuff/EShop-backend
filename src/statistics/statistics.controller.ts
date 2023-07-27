@@ -21,4 +21,11 @@ export class StatisticsController {
     findByMBPU(): Promise<any> {
         return this.statisticsService.findUsersTotal()
     }
+
+    @Public()
+    @Get('w')
+    w(): Promise<any> {
+        return this.statisticsService.w()
+    }
+
 }
