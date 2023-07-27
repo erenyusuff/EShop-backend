@@ -40,7 +40,7 @@ export class StatisticsService {
         const cartProducts = await this.cartService.w();
         cartProducts.forEach(item => {
                 // console.log('Cart Id', item.cartId == 4, 'product Id', item.productId, 'sold', item.quantity, item.product.productName)
-console.log(item.productId == 1, item.cartId, item.dataValues.quantity)
+                console.log(item.productId == 1, item.cartId, item.dataValues.quantity)
 
             }
         )
