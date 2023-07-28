@@ -24,3 +24,7 @@ Then, run Nest as usual:
 
 `npm run start`
 
+For dev mode: 
+
+`npm run start:dev`
+

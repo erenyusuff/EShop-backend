@@ -1,6 +1,6 @@
 import {Body, Controller, Delete, Get, Param, Post, Put, Request} from '@nestjs/common';
-import {Cart} from 'src/cart/models/cart.model';
-import {CartService} from 'src/cart/cart.service';
+import {Cart} from 'src/modules/cart/models/cart.model';
+import {CartService} from 'src/modules/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
 

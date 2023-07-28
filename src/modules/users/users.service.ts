@@ -13,7 +13,9 @@ export class UsersService {
     ) {
     }
 
-    async register(createUserDto: CreateUserDto): Promise<User> {
+    async register(createUserDto: CreateUserDto): Promise<User>
+
+    {
         const saltRounds = 10;
         const hashedPassword = await bcrypt.hash(createUserDto.password, saltRounds);
 
@@ -23,6 +25,7 @@ export class UsersService {
             lastName: createUserDto.lastName,
             email: createUserDto.email,
             birthday: createUserDto.birthday,
+            gender: createUserDto.gender,
             memberGsmNumber: createUserDto.memberGsmNumber,
             password: hashedPassword, // Şifrelenmiş parolayı kaydetdiyoruz
         });

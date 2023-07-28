@@ -37,13 +37,26 @@ export class StatisticsService {
     }
 
     async w(): Promise<any> {
-        const cartProducts = await this.cartService.w();
+        const cartProducts = await this.cartService.getCartProducts();
+        const cartProductss = await this.cartService.w();
+        let totalrevenue = {}
+        const productCounter = {cartProducts};
         cartProducts.forEach(item => {
                 // console.log('Cart Id', item.cartId == 4, 'product Id', item.productId, 'sold', item.quantity, item.product.productName)
-                console.log(item.productId == 1, item.cartId, item.dataValues.quantity)
+                // console.log(item.productId == 1, item.cartId, item.dataValues.quantity)
 
+                if (productCounter[item.product.id]) {
+                    productCounter[item.product.id] += item.quantity
+                    totalrevenue = item.product.price * item.quantity
+                } else {
+                    productCounter[item.product.id] = item.quantity;
+                    totalrevenue = item.product.price * item.dataValues.buyed
+                }
+                console.log(totalrevenue, item.product.id)
             }
         )
+        return productCounter
     }
+
 }
 

@@ -1,13 +1,13 @@
 import {Module} from '@nestjs/common';
 import {SequelizeModule} from '@nestjs/sequelize';
-import {UsersModule} from './users/users.module';
-import {OrdersModule} from './orders/orders.module';
-import {ProductsModule} from './products/products.module';
-import {CartModule} from './cart/cart.module';
-import {AuthModule} from './auth/auth.module';
-import {AuthGuard} from "./auth/auth.guard";
+import {UsersModule} from './modules/users/users.module';
+import {OrdersModule} from './modules/orders/orders.module';
+import {ProductsModule} from './modules/products/products.module';
+import {CartModule} from './modules/cart/cart.module';
+import {AuthModule} from './modules/auth/auth.module';
+import {AuthGuard} from "./modules/auth/auth.guard";
 import {APP_GUARD} from "@nestjs/core";
-import {StatisticsModule} from './statistics/statistics.module';
+import {StatisticsModule} from './modules/statistics/statistics.module';
 
 @Module({
     imports: [

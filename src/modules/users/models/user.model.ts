@@ -13,6 +13,7 @@ import {
 import {Exclude, Expose} from 'class-transformer';
 import {Order} from "../../orders/models/order.model";
 import {IsNotEmpty} from "class-validator";
+import {Gender} from "../../../shared/enum/gender";
 
 @Exclude()
 @Table({
@@ -26,10 +27,10 @@ export class User extends Model {
         autoIncrement: true,
     })
     id: number;
-    @Unique
     @IsNotEmpty()
     @Column
     userName: string;
+
     @Unique
     @IsEmail
     @Expose()
@@ -51,6 +52,10 @@ export class User extends Model {
     @Expose()
     @Column(DataType.DATEONLY)
     birthday: string;
+
+    @Expose()
+    @Column({ type: DataType.ENUM(Gender.female, Gender.male)})
+    gender: Gender;
 
     @Unique
     @Expose()

@@ -1,7 +1,7 @@
 import {Controller, Get} from '@nestjs/common';
 import {StatisticsService} from "./statistics.service";
 import {Cart} from "../cart/models/cart.model";
-import {Public} from "../auth/decorators/public.decorator";
+import {Public} from "../../core/decorators/public.decorator";
 
 @Controller('statistics')
 export class StatisticsController {

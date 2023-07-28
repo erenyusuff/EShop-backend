@@ -1,5 +1,5 @@
 import {
-    IsEmail,
+    IsEmail, IsEnum,
     IsISO8601,
     IsNotEmpty,
     IsNumberString,
@@ -8,6 +8,7 @@ import {
     MaxLength,
     MinLength
 } from 'class-validator';
+import {Gender} from "../../../shared/enum/gender";
 
 
 export class CreateUserDto {
@@ -36,6 +37,10 @@ export class CreateUserDto {
     @IsOptional()
     @IsISO8601()
     readonly birthday: string;
+
+    @IsOptional()
+    @IsEnum(Gender)
+    readonly gender: Gender;
 
     @IsNumberString()
     @MinLength(10, {message: 'number must contain at least 10 digits'})
