@@ -1,4 +1,4 @@
-import {Controller, Get} from '@nestjs/common';
+import {Controller, Get, Param} from '@nestjs/common';
 import {StatisticsService} from "./statistics.service";
 import {Cart} from "../cart/models/cart.model";
 import {Public} from "../../core/decorators/public.decorator";
@@ -17,15 +17,14 @@ export class StatisticsController {
     }
 
     @Public()
-    @Get('topspenders')
+    @Get('topSpenders')
     findByMBPU(): Promise<any> {
         return this.statisticsService.findUsersTotal()
     }
 
     @Public()
-    @Get('w')
-    w(): Promise<any> {
-        return this.statisticsService.w()
+    @Get(':id/soldTogether')
+    soldTogether(@Param('id') id: number): Promise<any> {
+        return this.statisticsService.soldTogether(id);
     }
-
 }

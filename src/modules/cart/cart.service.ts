@@ -108,6 +108,15 @@ export class CartService {
         })
     }
 
+    async getAllCarts() {
+        return this.cartModel.findAll({
+            include: [{
+                association: 'cartProducts',
+                include: ['product'],
+            },{association: 'products'}]
+        })
+    }
+
     async findUsersTotal() {
         return this.cartModel.findAll({
             attributes: [
@@ -118,11 +127,13 @@ export class CartService {
         })
     }
 
-    async w() {
+    async soldTogether(id: number) {
         return this.cartProductsModel.findAll({
-            include: ['product']
-        })
+            where: {productId: id},
+        });
+
     }
+
 }
 
 

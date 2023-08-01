@@ -31,7 +31,6 @@ export class User extends Model {
     @Column
     userName: string;
 
-    @Unique
     @IsEmail
     @Expose()
     @Column
@@ -57,7 +56,6 @@ export class User extends Model {
     @Column({ type: DataType.ENUM(Gender.female, Gender.male)})
     gender: Gender;
 
-    @Unique
     @Expose()
     @Column({type: DataType.BIGINT})
     memberGsmNumber: number;

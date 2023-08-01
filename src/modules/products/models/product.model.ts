@@ -17,4 +17,10 @@ export class Product extends Model {
     @IsNotEmpty()
     @Column
     stock: number;
+
+    @Column({
+        primaryKey: true,
+        autoIncrement: true,
+    })
+    id: number;
 }

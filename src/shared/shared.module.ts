@@ -1,4 +1,4 @@
-import { Global, Module } from '@nestjs/common';
+import {Global, Module} from '@nestjs/common';
 
 @Global()
 @Module({
@@ -7,4 +7,5 @@ import { Global, Module } from '@nestjs/common';
     imports: [],
     controllers: [],
 })
-export class SharedModule {}
+export class SharedModule {
+}

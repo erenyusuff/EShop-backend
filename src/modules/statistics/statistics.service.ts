@@ -36,27 +36,56 @@ export class StatisticsService {
         return this.cartService.findUsersTotal()
     }
 
-    async w(): Promise<any> {
-        const cartProducts = await this.cartService.getCartProducts();
-        const cartProductss = await this.cartService.w();
-        let totalrevenue = {}
-        const productCounter = {cartProducts};
-        cartProducts.forEach(item => {
-                // console.log('Cart Id', item.cartId == 4, 'product Id', item.productId, 'sold', item.quantity, item.product.productName)
-                // console.log(item.productId == 1, item.cartId, item.dataValues.quantity)
+    async soldTogether(id: number): Promise<any> {
+        let cartIds: any = {};
+        const productCounter = {};
+        let allCartProducts = await this.cartService.getAllCarts()
+        let cartProducts = await this.cartService.soldTogether(id);
+        const relatedCarts = cartProducts.map((item) => {
+            if (productCounter[item.productId]) {
+                productCounter[item.productId] += item.quantity;
+                cartIds = item.cartId
+                console.log(cartIds)
+                allCartProducts.map(item => {
+                    }
+                )
 
-                if (productCounter[item.product.id]) {
-                    productCounter[item.product.id] += item.quantity
-                    totalrevenue = item.product.price * item.quantity
-                } else {
-                    productCounter[item.product.id] = item.quantity;
-                    totalrevenue = item.product.price * item.dataValues.buyed
-                }
-                console.log(totalrevenue, item.product.id)
+                // cartIds = item.cartId;
+                // console.log(item.cartId)
+                // console.log(cartIds)
+                // // console.log(item.cartId == cartIds)
+                // allCartProducts.filter(item => {
+                //     console.log(item.cartId == cartIds)
+                // })
+                // allCartProducts.filter(item => {
+                //     console.log(cartIds == item.dataValues.cartProducts.cartId)
+                // })
+            } else {
+                productCounter[item.productId] = item.quantity;
+                cartIds = item.cartId
+                console.log(cartIds)
+                allCartProducts.map(item => {
+
+                    }
+                )
+
+                // cartIds = item.cartId;
+                // console.log(item.cartId)
+                // console.log(cartIds)
+                // // console.log(item.cartId == cartIds)
+                // allCartProducts.filter(item => {
+                //     console.log(item.cartId == cartIds)
+                // })
+                // allCartProducts.filter(item => {
+                //     console.log(cartIds== item.dataValues.cartProducts.cartId)
+                // })
             }
-        )
-        return productCounter
+        });
+        // allCartProducts.filter(item => {
+        //    console.log(cartIds == item.dataValues.cartProducts.cart)
+        // })
+        // return Object.entries(productCounter).sort(function (a: any, b: any) {
+        //     return b[1] - a[1];
+        // });
     }
-
 }
-
