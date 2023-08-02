@@ -1,5 +1,6 @@
 import {
-    IsEmail, IsEnum,
+    IsEmail,
+    IsEnum,
     IsISO8601,
     IsNotEmpty,
     IsNumberString,
@@ -17,6 +18,7 @@ export class CreateUserDto {
     @MinLength(3)
     @MaxLength(15)
     readonly userName: string
+
     @IsNotEmpty()
     @IsEmail()
     readonly email: string;
@@ -26,11 +28,11 @@ export class CreateUserDto {
     @MinLength(6)
     readonly password: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly firstName: string;
 
-    @IsNotEmpty()
+    @IsOptional()
     @IsString()
     readonly lastName: string;
 
@@ -42,6 +44,7 @@ export class CreateUserDto {
     @IsEnum(Gender)
     readonly gender: Gender;
 
+    @IsOptional()
     @IsNumberString()
     @MinLength(10, {message: 'number must contain at least 10 digits'})
     @MaxLength(11, {message: 'number should not be more than 11 digits'})

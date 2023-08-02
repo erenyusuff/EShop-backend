@@ -1,18 +1,7 @@
-import {
-    Column,
-    CreatedAt,
-    DataType,
-    DeletedAt,
-    HasMany,
-    IsEmail,
-    Model,
-    Table,
-    Unique,
-    UpdatedAt,
-} from 'sequelize-typescript';
+import {Column, CreatedAt, DataType, DeletedAt, HasMany, IsEmail, Model, Table, UpdatedAt,} from 'sequelize-typescript';
 import {Exclude, Expose} from 'class-transformer';
 import {Order} from "../../orders/models/order.model";
-import {IsNotEmpty} from "class-validator";
+import {IsNotEmpty, IsOptional} from "class-validator";
 import {Gender} from "../../../shared/enum/gender";
 
 @Exclude()
@@ -38,24 +27,24 @@ export class User extends Model {
 
     @Column
     password: string;
-
+    @IsOptional()
     @Expose()
     @Column({field: 'first_name'})
     firstName: string;
-
+    @IsOptional()
     @Expose()
     @Column({field: 'last_name'})
     lastName: string;
 
-
+    @IsOptional()
     @Expose()
     @Column(DataType.DATEONLY)
     birthday: string;
-
+    @IsOptional()
     @Expose()
-    @Column({ type: DataType.ENUM(Gender.female, Gender.male)})
+    @Column({type: DataType.ENUM(Gender.female, Gender.male)})
     gender: Gender;
-
+    @IsOptional()
     @Expose()
     @Column({type: DataType.BIGINT})
     memberGsmNumber: number;

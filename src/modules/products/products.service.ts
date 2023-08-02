@@ -1,17 +1,19 @@
-import { Injectable } from '@nestjs/common';
-import { InjectModel } from '@nestjs/sequelize';
+import {Injectable} from '@nestjs/common';
+import {InjectModel} from '@nestjs/sequelize';
 import {CreateProductDto} from "./dto/create-product.dto";
-import { Product } from "./models/product.model";
+import {Product} from "./models/product.model";
+
 @Injectable()
 export class ProductsService {
     constructor(
         @InjectModel(Product)
         private readonly productModel: typeof Product,
-    ) {}
+    ) {
+    }
 
     create(createProductDto: CreateProductDto): Promise<Product> {
         return this.productModel.create({
-           price: createProductDto.price,
+            price: createProductDto.price,
             productName: createProductDto.productName,
             stock: createProductDto.stock,
         });

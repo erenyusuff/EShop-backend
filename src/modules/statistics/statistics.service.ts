@@ -49,43 +49,16 @@ export class StatisticsService {
                 allCartProducts.map(item => {
                     }
                 )
-
-                // cartIds = item.cartId;
-                // console.log(item.cartId)
-                // console.log(cartIds)
-                // // console.log(item.cartId == cartIds)
-                // allCartProducts.filter(item => {
-                //     console.log(item.cartId == cartIds)
-                // })
-                // allCartProducts.filter(item => {
-                //     console.log(cartIds == item.dataValues.cartProducts.cartId)
-                // })
             } else {
                 productCounter[item.productId] = item.quantity;
                 cartIds = item.cartId
                 console.log(cartIds)
                 allCartProducts.map(item => {
-
-                    }
-                )
-
-                // cartIds = item.cartId;
-                // console.log(item.cartId)
-                // console.log(cartIds)
-                // // console.log(item.cartId == cartIds)
-                // allCartProducts.filter(item => {
-                //     console.log(item.cartId == cartIds)
-                // })
-                // allCartProducts.filter(item => {
-                //     console.log(cartIds== item.dataValues.cartProducts.cartId)
-                // })
+                })
             }
         });
-        // allCartProducts.filter(item => {
-        //    console.log(cartIds == item.dataValues.cartProducts.cart)
-        // })
-        // return Object.entries(productCounter).sort(function (a: any, b: any) {
-        //     return b[1] - a[1];
-        // });
+        return Object.entries(productCounter).sort(function (a: any, b: any) {
+            return b[1] - a[1];
+        });
     }
 }

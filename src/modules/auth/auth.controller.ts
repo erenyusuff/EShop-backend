@@ -11,8 +11,8 @@ import {UsersService} from "../users/users.service";
 export class AuthController {
 
     constructor
-    (private authService: AuthService,private readonly usersService: UsersService) {}
-
+    (private authService: AuthService, private readonly usersService: UsersService) {
+    }
 
 
     @HttpCode(HttpStatus.OK)

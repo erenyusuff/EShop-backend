@@ -113,7 +113,7 @@ export class CartService {
             include: [{
                 association: 'cartProducts',
                 include: ['product'],
-            },{association: 'products'}]
+            }, {association: 'products'}]
         })
     }
 
