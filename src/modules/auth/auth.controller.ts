@@ -5,9 +5,12 @@ import {CreateUserDto} from "../users/dto/create-user.dto";
 import {Public} from "../../core/decorators/public.decorator";
 import {User} from "../users/models/user.model";
 import {UsersService} from "../users/users.service";
+import {Roles} from "../roles/roles.guard";
+import {Role} from "../../shared/enum/role";
 
 
 @Controller('auth')
+@Roles.Params(true)
 export class AuthController {
 
     constructor
@@ -24,6 +27,7 @@ export class AuthController {
 
     @HttpCode(HttpStatus.CREATED)
     @Public()
+    @Roles.Params(Role.USER)
     @Post('register')
     async register(@Body() model: CreateUserDto): Promise<User> {
         return this.usersService.register(model);

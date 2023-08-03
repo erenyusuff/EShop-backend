@@ -18,6 +18,18 @@ export class Product extends Model {
     @Column
     stock: number;
 
+    @IsNumber()
+    @IsNotEmpty()
+    @Column
+    description: string;
+
+    @Column
+    img: string;
+
+    @Column
+    @IsNotEmpty()
+    category: string;
+
     @Column({
         primaryKey: true,
         autoIncrement: true,

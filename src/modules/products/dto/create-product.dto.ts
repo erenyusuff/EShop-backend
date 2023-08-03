@@ -15,4 +15,12 @@ export class CreateProductDto {
     @IsNotEmpty()
     stock: number;
 
+    @IsNotEmpty()
+    description: number;
+
+    @IsNotEmpty()
+    img: number;
+
+    @IsNotEmpty()
+    category: string;
 }
