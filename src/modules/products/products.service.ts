@@ -40,6 +40,14 @@ export class ProductsService {
         return result
     }
 
+    async getIds(id: number) {
+        return this.productModel.findAll({
+            where: {id: id},
+        });
+
+
+    }
+
     findOne(id: string): Promise<Product> {
         return this.productModel.findOne({
             where: {

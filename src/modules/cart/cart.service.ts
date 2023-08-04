@@ -6,6 +6,7 @@ import {CartProducts} from "./models/cart-products.model";
 import {OrdersService} from '../orders/orders.service';
 import {Product} from "../products/models/product.model";
 import sequelize from "sequelize";
+import {UpdateCartDto} from "./dto/update-cart.dto";
 
 
 @Injectable()
@@ -18,7 +19,7 @@ export class CartService {
         @InjectModel(CartProducts) private readonly cartProductsModel: typeof CartProducts,
         private readonly ordersService: OrdersService,
         @Inject('CartProductRepo')
-        private readonly cartProductModel: typeof CartProducts
+        private readonly cartProductModel: typeof CartProducts,
     ) {
     }
 
@@ -47,7 +48,6 @@ export class CartService {
         await foundModel.save();
         return foundModel;
     }
-
 
     async findAll(): Promise<Cart[]> {
         return this.cartModel.findAll();
@@ -134,6 +134,12 @@ export class CartService {
 
     }
 
+    async addProduct(id: number, model: UpdateCartDto): Promise<any> {
+        return this.cartProductModel.create({
+            cartId: id,
+            productId: model.productId,
+            quantity: model.quantity,
+        })
+    }
 }
-
 

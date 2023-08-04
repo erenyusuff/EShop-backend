@@ -3,7 +3,8 @@ import {Cart} from 'src/modules/cart/models/cart.model';
 import {CartService} from 'src/modules/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
-
+import {Public} from "../../core/decorators/public.decorator";
+import {UpdateCartDto} from "./dto/update-cart.dto";
 
 @Controller('Cart')
 export class CartController {
@@ -14,10 +15,17 @@ export class CartController {
 
     @Post()
     create(@Body() createCartDto: CreateCartDto, @Request() request): Promise<Cart> {
-        console.log('test', request.user)
         return this.cartService.create(createCartDto, request);
 
     }
+
+    @Public()
+    @Put(':id/addToCart')
+    addProduct(@Body() updateCartDto: UpdateCartDto, @Param('id') id: number, @Request() request): Promise<any> {
+        console.log(id)
+        return this.cartService.addProduct(id, updateCartDto)
+    }
+
 
     @Put(':id/buy')
     buy(@Param('id') id: number): Promise<Order | string> {

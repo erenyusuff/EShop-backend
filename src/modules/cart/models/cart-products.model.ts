@@ -1,5 +1,6 @@
 import {Column, HasOne, Model, Table} from 'sequelize-typescript';
 import {Product} from "../../products/models/product.model";
+import {IsNotEmpty} from "class-validator";
 
 @Table
 export class CartProducts extends Model {
@@ -9,14 +10,14 @@ export class CartProducts extends Model {
         autoIncrement: true,
     })
     id: number;
-
+    @IsNotEmpty()
     @Column
     cartId: number;
-
+    @IsNotEmpty()
     @Column
     productId: number;
-
-    @Column
+    @IsNotEmpty()
+    @Column({defaultValue: 1})
     quantity: number;
 
     @HasOne(() => Product, {

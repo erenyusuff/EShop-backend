@@ -3,6 +3,7 @@ import {Exclude, Expose} from 'class-transformer';
 import {Order} from "../../orders/models/order.model";
 import {IsNotEmpty, IsOptional} from "class-validator";
 import {Gender} from "../../../shared/enum/gender";
+import {Cart} from "../../cart/models/cart.model";
 
 @Exclude()
 @Table({
@@ -69,5 +70,6 @@ export class User extends Model {
         foreignKey: 'userId'
     })
     Orders: Order[];
+
 }
 
