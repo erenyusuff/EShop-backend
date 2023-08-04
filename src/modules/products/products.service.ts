@@ -27,11 +27,14 @@ export class ProductsService {
         return this.productModel.findAll();
     }
 
-    async findAllByCategory(category: any): Promise<any> {
+    async findAllByCategory(category: string): Promise<any> {
 
-        const query = "SELECT * From `Products` Where `category` = "
+        const query = "SELECT * From `Products` Where `category` = :category"
+
+
         const result = await this.productModel.sequelize.query(query, {
             type: QueryTypes.SELECT,
+            replacements: {category},
             raw: true,
         });
         return result
