@@ -4,6 +4,7 @@ import {CartService} from 'src/modules/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
 import {UpdateCartDto} from "./dto/update-cart.dto";
+import {Public} from "../../core/decorators/public.decorator";
 
 @Controller('Cart')
 export class CartController {
@@ -34,6 +35,7 @@ export class CartController {
         return this.cartService.findAll();
     }
 
+    @Public()
     @Get(':id')
     findOne(@Param('id') id: number): Promise<Cart> {
         return this.cartService.findOne(id);
@@ -42,5 +44,11 @@ export class CartController {
     @Delete(':id')
     remove(@Param('id') id: number): Promise<void> {
         return this.cartService.remove(id);
+    }
+
+    @Public()
+    @Get(':userId/mycart')
+    findCurrentUserCart(@Param('userId') userId: number): Promise<Cart> {
+        return this.cartService.findCurrentUserCart(userId);
     }
 }

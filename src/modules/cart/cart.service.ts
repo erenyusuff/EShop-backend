@@ -74,7 +74,6 @@ export class CartService {
             },
             include: [{association: 'cartProducts', include: ['product']}]
         })
-
     }
 
 
@@ -148,7 +147,7 @@ export class CartService {
 
     async addProduct(model: UpdateCartDto, request): Promise<any> {
         const userId = request.user.userId;
-        let cart = await this.findCurrentUserCart(userId);
+        const cart = await this.findCurrentUserCart(userId);
 
         if (!cart) {
             const createCartDto = {
@@ -165,10 +164,10 @@ export class CartService {
 
         if (cartProduct) {
             cartProduct.quantity = cartProduct.quantity + model.quantity;
-            cartProduct.save();
+            await cartProduct.save();
             return cart;
         } else {
-            let createdCartProduct = await this.cartProductModel.create({
+            const createdCartProduct = await this.cartProductModel.create({
                 cartId: cart.id,
                 productId: model.productId,
                 quantity: model.quantity,
