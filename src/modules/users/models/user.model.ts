@@ -71,5 +71,10 @@ export class User extends Model {
     })
     Orders: Order[];
 
+    @HasMany(() => Cart, {
+        sourceKey: 'id',
+        foreignKey: 'userId'
+    })
+    Cart: Cart[];
 }
 

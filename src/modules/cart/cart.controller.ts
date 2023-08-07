@@ -3,7 +3,6 @@ import {Cart} from 'src/modules/cart/models/cart.model';
 import {CartService} from 'src/modules/cart/cart.service';
 import {CreateCartDto} from "./dto/create-cart.dto";
 import {Order} from "../orders/models/order.model";
-import {Public} from "../../core/decorators/public.decorator";
 import {UpdateCartDto} from "./dto/update-cart.dto";
 
 @Controller('Cart')
@@ -19,11 +18,9 @@ export class CartController {
 
     }
 
-    @Public()
-    @Put(':id/addToCart')
-    addProduct(@Body() updateCartDto: UpdateCartDto, @Param('id') id: number, @Request() request): Promise<any> {
-        console.log(id)
-        return this.cartService.addProduct(id, updateCartDto)
+    @Put('current/addToCart')
+    addProduct(@Body() updateCartDto: UpdateCartDto, @Request() request): Promise<any> {
+        return this.cartService.addProduct(updateCartDto, request);
     }
 
 

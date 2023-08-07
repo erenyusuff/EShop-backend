@@ -66,6 +66,18 @@ export class CartService {
         });
     }
 
+    findCurrentUserCart(userId: number) {
+        return this.cartModel.findOne({
+            where: {
+                userId: userId,
+                isActive: true
+            },
+            include: [{association: 'cartProducts', include: ['product']}]
+        })
+
+    }
+
+
     async remove(id: number): Promise<void> {
         const cart = await this.findOne(id);
         await cart.destroy();
@@ -134,12 +146,38 @@ export class CartService {
 
     }
 
-    async addProduct(id: number, model: UpdateCartDto): Promise<any> {
-        return this.cartProductModel.create({
-            cartId: id,
-            productId: model.productId,
-            quantity: model.quantity,
+    async addProduct(model: UpdateCartDto, request): Promise<any> {
+        const userId = request.user.userId;
+        let cart = await this.findCurrentUserCart(userId);
+
+        if (!cart) {
+            const createCartDto = {
+                products: [{
+                    productId: model.productId,
+                    quantity: model.quantity
+                }]
+            };
+            return this.create(createCartDto, request)
+        }
+        const cartProduct = cart.cartProducts.find(item => {
+            return item.productId == model.productId;
         })
+
+        if (cartProduct) {
+            cartProduct.quantity = cartProduct.quantity + model.quantity;
+            cartProduct.save();
+            return cart;
+        } else {
+            let createdCartProduct = await this.cartProductModel.create({
+                cartId: cart.id,
+                productId: model.productId,
+                quantity: model.quantity,
+            });
+            cart.cartProducts.push(createdCartProduct);
+            return cart;
+        }
+        // kart icinde bu urun zaten varsa update et sayisin
+
     }
 }
 
