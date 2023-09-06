@@ -36,7 +36,7 @@ export class CartController {
     }
 
     @Public()
-    @Get(':id')
+    @Get('cart/:id')
     findOne(@Param('id') id: number): Promise<Cart> {
         return this.cartService.findOne(id);
     }
@@ -46,9 +46,8 @@ export class CartController {
         return this.cartService.remove(id);
     }
 
-    @Public()
-    @Get(':userId/mycart')
-    findCurrentUserCart(@Param('userId') userId: number): Promise<Cart> {
-        return this.cartService.findCurrentUserCart(userId);
+    @Get('myCart')
+    findCurrentUsersCartByToken(@Request() request): Promise<any> {
+        return this.cartService.findCurrentUsersCartByToken(request);
     }
 }

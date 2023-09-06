@@ -1,13 +1,21 @@
-import {ExecutionContext} from '@nestjs/common';
-import {createRolesGuard} from 'nestjs-roles';
-import {Role} from 'src/shared/enum/role';
-
-function getRole(context: ExecutionContext) {
-    const {session} = context.switchToHttp().getRequest();
-    if (!session) {
-        return;
-    }
-    return (session as { role?: Role | Role[] }).role;
-}
-
-export const Roles = createRolesGuard<Role>(getRole);
+// import { Injectable, CanActivate, ExecutionContext } from '@nestjs/common';
+// import { Reflector } from '@nestjs/core';
+// import {ROLES_KEY} from "./roles.decorator";
+// import {Role} from "../../shared/enum/role.enum";
+//
+// @Injectable()
+// export class RolesGuard implements CanActivate {
+//     constructor(private reflector: Reflector) {}
+//
+//     canActivate(context: ExecutionContext): boolean {
+//         const requiredRoles = this.reflector.getAllAndOverride<Role[]>(ROLES_KEY, [
+//             context.getHandler(),
+//             context.getClass(),
+//         ]);
+//         if (!requiredRoles) {
+//             return true;
+//         }
+//         const { user } = context.switchToHttp().getRequest();
+//         return requiredRoles.some((role) => user.roles?.includes(role));
+//     }
+// }

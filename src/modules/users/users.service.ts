@@ -4,7 +4,6 @@ import {CreateUserDto} from './dto/create-user.dto';
 import {User} from './models/user.model';
 import * as bcrypt from 'bcrypt';
 
-
 @Injectable()
 export class UsersService {
     constructor(
@@ -26,7 +25,6 @@ export class UsersService {
             gender: createUserDto.gender,
             memberGsmNumber: createUserDto.memberGsmNumber,
             password: hashedPassword,
-
         });
     }
 

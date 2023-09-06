@@ -5,7 +5,7 @@ import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
 import {OrdersService} from '../orders/orders.service';
 import {Product} from "../products/models/product.model";
-import sequelize from "sequelize";
+import sequelize, {QueryTypes} from "sequelize";
 import {UpdateCartDto} from "./dto/update-cart.dto";
 
 
@@ -76,6 +76,20 @@ export class CartService {
         })
     }
 
+    async findCurrentUsersCartByToken(request) {
+        const userId = request.user.userId;
+        const cart = await this.findCurrentUserCart(userId)
+        return cart
+
+        // S
+        // const query = "SELECT * FROM Carts INNER JOIN Users ON Carts.userId = Users.id WHERE userId = :userId"
+        // const result = await this.cartModel.sequelize.query(query, {
+        //     type: QueryTypes.SELECT,
+        //     replacements: { userId: userId },
+        //     raw: true,
+        // });
+        // return result
+    }
 
     async remove(id: number): Promise<void> {
         const cart = await this.findOne(id);
