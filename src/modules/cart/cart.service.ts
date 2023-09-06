@@ -178,6 +178,8 @@ export class CartService {
 
         if (cartProduct) {
             cartProduct.quantity = cartProduct.quantity + model.quantity;
+            cart.totalPrice += cartProduct.product.price
+            await cart.save();
             await cartProduct.save();
             return cart;
         } else {
@@ -186,6 +188,8 @@ export class CartService {
                 productId: model.productId,
                 quantity: model.quantity,
             });
+            cart.totalPrice += cartProduct.product.price
+            await cart.save();
             cart.cartProducts.push(createdCartProduct);
             return cart;
         }
