@@ -5,7 +5,7 @@ import {Cart} from './models/cart.model';
 import {CartProducts} from "./models/cart-products.model";
 import {OrdersService} from '../orders/orders.service';
 import {Product} from "../products/models/product.model";
-import sequelize, {QueryTypes} from "sequelize";
+import sequelize from "sequelize";
 import {UpdateCartDto} from "./dto/update-cart.dto";
 
 
@@ -81,7 +81,7 @@ export class CartService {
         const cart = await this.findCurrentUserCart(userId)
         return cart
 
-        // S
+        // SQL kullanimi
         // const query = "SELECT * FROM Carts INNER JOIN Users ON Carts.userId = Users.id WHERE userId = :userId"
         // const result = await this.cartModel.sequelize.query(query, {
         //     type: QueryTypes.SELECT,
@@ -189,8 +189,6 @@ export class CartService {
             cart.cartProducts.push(createdCartProduct);
             return cart;
         }
-        // kart icinde bu urun zaten varsa update et sayisin
-
     }
 }
 

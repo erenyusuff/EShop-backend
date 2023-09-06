@@ -1,4 +1,4 @@
-import {Body, Controller, Delete, Get, Param, Post} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Post, Request} from '@nestjs/common';
 import {CreateOrderDto} from './dto/create-order.dto';
 import {Order} from './models/order.model';
 import {OrdersService} from './orders.service';
@@ -13,14 +13,18 @@ export class OrdersController {
         return this.ordersService.create(createOrderDto);
     }
 
-    @Get()
-    findAll(): Promise<Order[]> {
-        return this.ordersService.findAll();
-    }
-
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<Order> {
-        return this.ordersService.findOne(id);
+    // @Get()
+    // findAll(): Promise<Order[]> {
+    //     return this.ordersService.findAll();
+    // }
+    //
+    // @Get(':id')
+    // findOne(@Param('id') id: string): Promise<Order> {
+    //     return this.ordersService.findOne(id);
+    // }
+    @Get('myOrders')
+    findAllOrders(@Request() request) {
+        return this.ordersService.findCurrentUsersOrdersByToken(request);
     }
 
     @Delete(':id')

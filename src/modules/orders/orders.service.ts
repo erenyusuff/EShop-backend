@@ -2,6 +2,7 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {Order} from "./models/order.model";
+import {QueryTypes} from "sequelize";
 
 @Injectable()
 export class OrdersService {
@@ -34,6 +35,41 @@ export class OrdersService {
                 include: ['products']
             }]
         });
+    }
+    findCurrentUserOrders(userId: number) {
+        return this.orderModel.findAll({
+            where: {
+                userId: userId,
+                isActive: true
+            },
+            include: [{association: 'cart', include: ['cartProducts']}]
+        })
+    }
+
+    async findCurrentUsersOrdersByToken(request) {
+        const userId = request.user.userId;
+        const cart = await this.findCurrentUserOrders(userId)
+        return cart
+    // async findAllOrdersOfUser(request) {
+    //     const userId = request.user.userId
+    //     const query = "SELECT * FROM Orders WHERE userId = :userId"
+    //     const result = await this.orderModel.sequelize.query(query, {
+    //         type: QueryTypes.SELECT,
+    //         replacements: { userId: userId },
+    //         raw: true,
+    //     });
+    //     return result
+
+        // const userid = request.user.id
+        // return this.orderModel.findOne({
+        //     where: {
+        //         userId : userid
+        //     },
+        //     include: [{
+        //         association: 'cart',
+        //         include: ['products']
+        //     }]
+        // });
     }
 
     async remove(id: string): Promise<void> {
