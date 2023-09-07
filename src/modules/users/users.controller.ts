@@ -4,6 +4,7 @@ import {User} from './models/user.model';
 import {UsersService} from './users.service';
 import {Public} from "../../core/decorators/public.decorator";
 
+
 @Controller('users')
 export class UsersController {
     constructor(private readonly usersService: UsersService) {
@@ -24,7 +25,7 @@ export class UsersController {
     findOne(@Param('id') id: string): Promise<User> {
         return this.usersService.findOne(id);
     }
-    
+
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
         return this.usersService.remove(id);

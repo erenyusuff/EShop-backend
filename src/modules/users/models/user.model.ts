@@ -5,6 +5,7 @@ import {IsNotEmpty, IsOptional} from "class-validator";
 import {Gender} from "../../../shared/enum/gender";
 import {Cart} from "../../cart/models/cart.model";
 
+
 @Exclude()
 @Table({
     tableName: 'Users',
@@ -64,6 +65,7 @@ export class User extends Model {
     @Expose()
     @Column({field: 'deleted_at'})
     deletedAt: Date;
+
 
     @HasMany(() => Order, {
         sourceKey: 'id',

@@ -188,7 +188,7 @@ export class CartService {
                 productId: model.productId,
                 quantity: model.quantity,
             });
-            cart.totalPrice += cartProduct.product.price
+            cart.totalPrice += createdCartProduct.product.price
             await cart.save();
             cart.cartProducts.push(createdCartProduct);
             return cart;
