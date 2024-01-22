@@ -19,6 +19,7 @@ export class CreateUserDto {
     @MaxLength(15)
     readonly userName: string
 
+
     @IsNotEmpty()
     @IsEmail()
     readonly email: string;
@@ -43,6 +44,9 @@ export class CreateUserDto {
     @IsOptional()
     @IsEnum(Gender)
     readonly gender: Gender;
+
+
+    readonly role: string
 
     @IsOptional()
     @IsNumberString()

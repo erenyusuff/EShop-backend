@@ -3,6 +3,7 @@ import {InjectModel} from '@nestjs/sequelize';
 import {CreateProductDto} from "./dto/create-product.dto";
 import {Product} from "./models/product.model";
 import {QueryTypes} from "sequelize";
+import {UpdateProductDto} from "./dto/update-product.dto";
 
 @Injectable()
 export class ProductsService {
@@ -23,6 +24,11 @@ export class ProductsService {
         });
     }
 
+    update(req: any, id: number): Promise<any> {
+        return this.productModel.update(req.body,{
+            where: {id: id},
+        });
+    }
     async findAll(): Promise<Product[]> {
         return this.productModel.findAll();
     }

@@ -19,7 +19,7 @@ export class CreateProductDto {
     description: number;
 
     @IsNotEmpty()
-    img: number;
+    img: string;
 
     @IsNotEmpty()
     category: string;

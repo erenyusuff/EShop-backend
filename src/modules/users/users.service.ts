@@ -1,4 +1,4 @@
-import {Injectable} from '@nestjs/common';
+import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateUserDto} from './dto/create-user.dto';
 import {User} from './models/user.model';
@@ -25,6 +25,7 @@ export class UsersService {
             gender: createUserDto.gender,
             memberGsmNumber: createUserDto.memberGsmNumber,
             password: hashedPassword,
+            role: "user"
         });
     }
 
@@ -63,4 +64,18 @@ export class UsersService {
             }
         });
     }
+
+    async adminKontrol(req): Promise<any> {
+        const role = req.user.role
+        if (role == "admin") {
+            console.log('sucsessfull')
+            console.log(role)
+            return
+        } else {
+            console.log('hata')
+            console.log(role)
+            throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+        }
+    }
+
 }

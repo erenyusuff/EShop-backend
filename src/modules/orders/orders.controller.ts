@@ -22,9 +22,9 @@ export class OrdersController {
     // findOne(@Param('id') id: string): Promise<Order> {
     //     return this.ordersService.findOne(id);
     // }
-    @Get('myOrders')
-    findAllOrders(@Request() request) {
-        return this.ordersService.findCurrentUsersOrdersByToken(request);
+    @Get('all')
+    findAllOrders() {
+        return this.ordersService.findAll();
     }
 
     @Delete(':id')

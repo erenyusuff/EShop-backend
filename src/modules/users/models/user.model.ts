@@ -16,23 +16,27 @@ export class User extends Model {
     @Column({
         primaryKey: true,
         autoIncrement: true,
+        unique: true
     })
     id: number;
+
     @IsNotEmpty()
-    @Column
+    @Column({ unique: true })
     userName: string;
 
     @IsEmail
     @Expose()
-    @Column
+    @Column({ unique: true })
     email: string;
 
     @Column
     password: string;
+
     @IsOptional()
     @Expose()
     @Column({field: 'first_name'})
     firstName: string;
+
     @IsOptional()
     @Expose()
     @Column({field: 'last_name'})
@@ -42,14 +46,19 @@ export class User extends Model {
     @Expose()
     @Column(DataType.DATEONLY)
     birthday: string;
+
     @IsOptional()
     @Expose()
     @Column({type: DataType.ENUM(Gender.female, Gender.male)})
     gender: Gender;
+
     @IsOptional()
     @Expose()
-    @Column({type: DataType.BIGINT})
+    @Column({type: DataType.BIGINT, unique: true})
     memberGsmNumber: number;
+
+    @Column({field: "role"})
+    role: string;
 
     @CreatedAt
     @Expose()

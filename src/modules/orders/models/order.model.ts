@@ -17,6 +17,9 @@ export class Order extends Model {
     @Column({defaultValue: true})
     isActive: boolean;
 
+    @Column
+    status: string;
+
     @HasOne(() => Cart, {
         sourceKey: 'cartId',
         foreignKey: 'id'

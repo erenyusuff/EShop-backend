@@ -15,8 +15,8 @@ export class OrdersService {
         return this.orderModel.create({
             userId: createOrderDto.userId,
             cartId: createOrderDto.cartId,
-            price: createOrderDto.price
-
+            price: createOrderDto.price,
+            status: "paid"
         });
     }
 

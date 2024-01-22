@@ -8,6 +8,9 @@ import {AuthModule} from './modules/auth/auth.module';
 import {AuthGuard} from "./modules/auth/auth.guard";
 import {APP_GUARD} from "@nestjs/core";
 import {StatisticsModule} from './modules/statistics/statistics.module';
+import { AdminController } from './modules/admin/admin.controller';
+import { AdminService } from './modules/admin/admin.service';
+import { AdminModule } from './modules/admin/admin.module';
 
 @Module({
     imports: [
@@ -22,14 +25,16 @@ import {StatisticsModule} from './modules/statistics/statistics.module';
                 synchronize: true,
             }
         ),
-        UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule, StatisticsModule,
+        UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule, StatisticsModule, AdminModule,
     ],
     providers: [
         {
             provide: APP_GUARD,
             useClass: AuthGuard,
         },
+        AdminService,
     ],
+    controllers: [AdminController],
 })
 export class AppModule {
 }
