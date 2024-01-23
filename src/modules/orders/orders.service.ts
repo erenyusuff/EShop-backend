@@ -16,7 +16,7 @@ export class OrdersService {
             userId: createOrderDto.userId,
             cartId: createOrderDto.cartId,
             price: createOrderDto.price,
-            status: "paid"
+            status: "waiting"
         });
     }
 

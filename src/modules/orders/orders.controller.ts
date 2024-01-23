@@ -27,6 +27,10 @@ export class OrdersController {
         return this.ordersService.findAll();
     }
 
+    @Get('myOrders')
+    findMyOrders(@Request() request) {
+        return this.ordersService.findCurrentUsersOrdersByToken(request);
+    }
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
         return this.ordersService.remove(id);

@@ -74,7 +74,7 @@ export class UsersService {
         } else {
             console.log('hata')
             console.log(role)
-            throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
+            // throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
         }
     }
 

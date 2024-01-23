@@ -22,7 +22,7 @@ import { AdminModule } from './modules/admin/admin.module';
                 password: 'Yusuf4757',
                 database: 'Cart_Order',
                 autoLoadModels: true,
-                synchronize: true,
+                synchronize: false,
             }
         ),
         UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule, StatisticsModule, AdminModule,
