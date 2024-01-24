@@ -1,7 +1,8 @@
-import {Body, Controller, Delete, Get, Param, Post, Request} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post, Request} from '@nestjs/common';
 import {CreateOrderDto} from './dto/create-order.dto';
 import {Order} from './models/order.model';
 import {OrdersService} from './orders.service';
+import {UpdateOrderDto} from "./dto/update-order.dto";
 
 @Controller('orders')
 export class OrdersController {
@@ -11,6 +12,11 @@ export class OrdersController {
     @Post()
     create(@Body() createOrderDto: CreateOrderDto): Promise<Order> {
         return this.ordersService.create(createOrderDto);
+    }
+
+    @Patch('update')
+    update(@Body() updateOrderDto: UpdateOrderDto) {
+        return this.ordersService.update(updateOrderDto)
     }
 
     // @Get()

@@ -2,6 +2,8 @@ import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {Order} from "./models/order.model";
+import {UpdateOrderDto} from "./dto/update-order.dto";
+import {where} from "sequelize";
 
 @Injectable()
 export class OrdersService {
@@ -18,6 +20,13 @@ export class OrdersService {
             price: createOrderDto.price,
             status: "waiting"
         });
+    }
+
+    update(updateOrderDto: UpdateOrderDto) {
+        return this.orderModel.update({
+            status: updateOrderDto.status
+        }, {where: {id: updateOrderDto.id}})
+
     }
 
     async findAll(): Promise<Order[]> {
