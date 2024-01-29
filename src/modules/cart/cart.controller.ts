@@ -47,7 +47,7 @@ export class CartController {
     }
 
     @Get('myCart')
-    findCurrentUsersCartByToken(@Request() request): Promise<any> {
-        return this.cartService.findCurrentUsersCartByToken(request);
+    findCurrentUsersCartByToken(@Request() req): Promise<any> {
+        return this.cartService.findCurrentUsersCartByToken(req);
     }
 }

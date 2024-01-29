@@ -50,6 +50,15 @@ export class UsersService {
         });
     }
 
+
+    async findByToken(req): Promise<any> {
+        const userId = req.user.id
+        return this.userModel.findOne({
+            where: {
+                id: userId
+            }
+        })
+    }
     async remove(id: string): Promise<void> {
         const user = await this.findOne(id);
         await user.destroy();

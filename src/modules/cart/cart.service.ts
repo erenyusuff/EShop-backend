@@ -76,12 +76,12 @@ export class CartService {
         })
     }
 
-    async findCurrentUsersCartByToken(request) {
-        const userId = request.user.userId;
+    async findCurrentUsersCartByToken(req) {
+        const userId = req.user.userId;
         const cart = await this.findCurrentUserCart(userId)
         return cart
 
-        // SQL kullanimi
+        // SQL
         // const query = "SELECT * FROM Carts INNER JOIN Users ON Carts.userId = Users.id WHERE userId = :userId"
         // const result = await this.cartModel.sequelize.query(query, {
         //     type: QueryTypes.SELECT,

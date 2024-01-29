@@ -29,9 +29,7 @@ export class Order extends Model {
 
     @HasOne(() => User, {
         sourceKey: 'userId',
-        foreignKey: 'id'
+        foreignKey: 'id',
     })
-    user: User;
-
-
+     user: User
 }

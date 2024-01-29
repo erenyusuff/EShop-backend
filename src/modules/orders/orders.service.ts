@@ -56,7 +56,7 @@ export class OrdersService {
         });
     }
 
-    findCurrentUserOrders(userId: number) {
+    findCurrentUserOrders(userId: number){
         return this.orderModel.findAll({
             where: {
                 userId: userId,
@@ -71,10 +71,21 @@ export class OrdersService {
         })
     }
 
-    async findCurrentUsersOrdersByToken(request) {
-        const userId = request.user.userId;
-        const cart = await this.findCurrentUserOrders(userId)
-        return cart
+    async findCurrentUsersOrdersByToken(req) {
+        console.log('hello')
+        const userId = req.user.userId;
+        return this.orderModel.findAll({
+            where: {
+                userId: userId,
+                isActive: true
+            },
+            include: [{
+                association: 'cart', include: [
+                    {
+                        association: 'cartProducts', include: ['product'],
+                    }]
+            }]
+        })
 
         // async findAllOrdersOfUser(request) {
         //     const userId = request.user.userId

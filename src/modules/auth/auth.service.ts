@@ -15,8 +15,8 @@ export class AuthService {
         const user = await this.usersService.findOneByUserName(userName);
         const isMatch = await compare(pass, user.password);
         if (!isMatch)
-            if (compare(user?.password !== pass)) {
-                throw new UnauthorizedException();
+            if (compare(user?.password,pass)) {
+                throw new UnauthorizedException()
             }
         const payload = {userId: user.id, userName: user.userName, eMail: user.email, password: user.password, memberGsmNumber: user.memberGsmNumber, birthday: user.birthday, gender: user.gender, firstName: user.firstName, lastName: user.lastName, role: user.role};
         return {

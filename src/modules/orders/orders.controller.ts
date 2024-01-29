@@ -27,11 +27,16 @@ export class OrdersController {
     // }
     //
 
-    @Get(':id')
-    findOne(@Param('id') id: string): Promise<Order> {
-        return this.ordersService.findOne(id);
-    }
+    // @Get(':id')
+    // findOne(@Param('id') id: string): Promise<Order> {
+    //     return this.ordersService.findOne(id);
+    // }
 
+    @Get('myOrders')
+    findMyOrders(@Request() req): any {
+        console.log('test')
+        return this.ordersService.findCurrentUsersOrdersByToken(req);
+    }
     @Get('all')
     findAllOrders(
         @PaginateQuery('all') paginateQuery?: PaginateQueryInterface,
@@ -39,10 +44,6 @@ export class OrdersController {
         return this.ordersService.findAll(paginateQuery);
     }
 
-    @Get('myOrders')
-    findMyOrders(@Request() request) {
-        return this.ordersService.findCurrentUsersOrdersByToken(request);
-    }
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
         return this.ordersService.remove(id);
