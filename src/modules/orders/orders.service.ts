@@ -3,7 +3,8 @@ import {InjectModel} from '@nestjs/sequelize';
 import {CreateOrderDto} from "./dto/create-order.dto";
 import {Order} from "./models/order.model";
 import {UpdateOrderDto} from "./dto/update-order.dto";
-import {where} from "sequelize";
+import {PaginateQueryInterface} from "../../core/database/paginate.intercase";
+import {PaginationService} from "../../core/database/pagination.service";
 
 @Injectable()
 export class OrdersService {
@@ -29,8 +30,18 @@ export class OrdersService {
 
     }
 
-    async findAll(): Promise<Order[]> {
-        return this.orderModel.findAll();
+    async findAll(paginateQuery?: PaginateQueryInterface): Promise<Order[]> {
+        console.log(paginateQuery)
+        // return this.orderModel.findAll({
+        //     include: [{
+        //         association: 'user'
+        //     }]
+        // });
+        return PaginationService.findAllPaginate({
+            ...paginateQuery,
+            model: this.orderModel
+        });
+
     }
 
     findOne(id: string): Promise<Order> {

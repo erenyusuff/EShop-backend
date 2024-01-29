@@ -25,7 +25,7 @@ export class UsersService {
             gender: createUserDto.gender,
             memberGsmNumber: createUserDto.memberGsmNumber,
             password: hashedPassword,
-            role: "user"
+            role: createUserDto.role
         });
     }
 

@@ -11,6 +11,7 @@ import {StatisticsModule} from './modules/statistics/statistics.module';
 import { AdminController } from './modules/admin/admin.controller';
 import { AdminService } from './modules/admin/admin.service';
 import { AdminModule } from './modules/admin/admin.module';
+import { PaginationService } from './core/database/pagination.service';
 
 @Module({
     imports: [
@@ -22,7 +23,7 @@ import { AdminModule } from './modules/admin/admin.module';
                 password: 'Yusuf4757',
                 database: 'Cart_Order',
                 autoLoadModels: true,
-                synchronize: true,
+                synchronize: false,
             }
         ),
         UsersModule, OrdersModule, ProductsModule, CartModule, AuthModule, StatisticsModule, AdminModule,
@@ -33,6 +34,7 @@ import { AdminModule } from './modules/admin/admin.module';
             useClass: AuthGuard,
         },
         AdminService,
+        PaginationService,
     ],
     controllers: [AdminController],
 })

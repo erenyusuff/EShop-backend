@@ -26,6 +26,7 @@
     "@nestjs/platform-express": "10.0.3",
     "@nestjs/sequelize": "10.0.0",
     "@nestjs/swagger": "^7.1.10",
+    "@sequelize/core": "^7.0.0-alpha.29",
     "@youba/nestjs-dbvalidator": "^1.1.3",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",

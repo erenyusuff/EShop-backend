@@ -3,6 +3,8 @@ import {CreateOrderDto} from './dto/create-order.dto';
 import {Order} from './models/order.model';
 import {OrdersService} from './orders.service';
 import {UpdateOrderDto} from "./dto/update-order.dto";
+import {PaginateQuery} from "../../core/database/paginate.decorator";
+import {PaginateQueryInterface} from "../../core/database/paginate.intercase";
 
 @Controller('orders')
 export class OrdersController {
@@ -24,13 +26,17 @@ export class OrdersController {
     //     return this.ordersService.findAll();
     // }
     //
-    // @Get(':id')
-    // findOne(@Param('id') id: string): Promise<Order> {
-    //     return this.ordersService.findOne(id);
-    // }
+
+    @Get(':id')
+    findOne(@Param('id') id: string): Promise<Order> {
+        return this.ordersService.findOne(id);
+    }
+
     @Get('all')
-    findAllOrders() {
-        return this.ordersService.findAll();
+    findAllOrders(
+        @PaginateQuery('all') paginateQuery?: PaginateQueryInterface,
+    ): Promise<any> {
+        return this.ordersService.findAll(paginateQuery);
     }
 
     @Get('myOrders')
