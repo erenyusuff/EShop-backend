@@ -19,6 +19,7 @@ export class PaginationService {
         this.include = [];
 
 
+
         if( include != '') {
             console.log(include)
             const result = await options.model.findAll({
@@ -29,6 +30,9 @@ export class PaginationService {
             const totalCount = await options.model.count({
                 ...(this.include ? {include: this.include} : {})
             });
+
+            const sort = await options.sort
+
             const totalPages = Math.ceil(totalCount / take);
             const data: any[] = result;
 

@@ -27,6 +27,10 @@ export class OrdersController {
         return this.ordersService.findAll2(paginateQuery);
     }
 
+    @Get('state')
+    findAllOfThem(@PaginateQuery('all') paginateQuery?: PaginateQueryInterface,): Promise<any> {
+        return this.ordersService.findAll3(paginateQuery);
+    }
 
     // @Get(':id')
     // findOne(@Param('id') id: string): Promise<Order> {

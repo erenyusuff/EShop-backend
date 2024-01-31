@@ -40,7 +40,7 @@ export class OrdersService {
         });
     }
     async findAll2(paginateQuery?: PaginateQueryInterface): Promise<Order[]> {
-        console.log(paginateQuery)
+
         return PaginationService.findAllPaginate({
             ...paginateQuery,
             model: this.orderModel,
@@ -52,7 +52,20 @@ export class OrdersService {
                     }]
             }, {association: 'user'}]
         });
+    }
+    async findAll3(paginateQuery?: PaginateQueryInterface): Promise<Order[]> {
 
+        return PaginationService.findAllPaginate({
+            ...paginateQuery,
+            model: this.orderModel,
+            take: 100000,
+            include:[{
+                association: 'cart', include: [
+                    {
+                        association: 'cartProducts', include: ['product'],
+                    }]
+            }, {association: 'user'}]
+        });
     }
 
     findOne(id: string): Promise<Order> {
