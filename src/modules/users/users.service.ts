@@ -1,4 +1,4 @@
-import {HttpException, HttpStatus, Injectable} from '@nestjs/common';
+import {Injectable} from '@nestjs/common';
 import {InjectModel} from '@nestjs/sequelize';
 import {CreateUserDto} from './dto/create-user.dto';
 import {User} from './models/user.model';
@@ -59,6 +59,7 @@ export class UsersService {
             }
         })
     }
+
     async remove(id: string): Promise<void> {
         const user = await this.findOne(id);
         await user.destroy();
@@ -77,11 +78,11 @@ export class UsersService {
     async adminKontrol(req): Promise<any> {
         const role = req.user.role
         if (role == "admin") {
-            console.log('sucsessfull')
+            console.log('successful')
             console.log(role)
             return
         } else {
-            console.log('hata')
+            console.log('error')
             console.log(role)
             // throw new HttpException('Unauthorized', HttpStatus.UNAUTHORIZED);
         }

@@ -45,8 +45,12 @@ export class OrdersService {
             ...paginateQuery,
             model: this.orderModel,
             take: 20,
-            include: 'cartProducts',
-            association: 'cart'
+            include:[{
+                association: 'cart', include: [
+                    {
+                        association: 'cartProducts', include: ['product'],
+                    }]
+            }, {association: 'user'}]
         });
 
     }

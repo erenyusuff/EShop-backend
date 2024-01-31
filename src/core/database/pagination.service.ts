@@ -1,6 +1,5 @@
 import {Injectable} from '@nestjs/common';
 import {PaginateOptions} from "./paginate.intercase";
-import {Cart} from "../../modules/cart/models/cart.model";
 
 @Injectable()
 export class PaginationService {
@@ -17,18 +16,15 @@ export class PaginationService {
         const page = options.page || this.options.defaultPage || 1;
         const offset = options.skip || ((page * take) - take);
         const include = options.include || ''
-        const association = options.association || ''
         this.include = [];
 
 
         if( include != '') {
+            console.log(include)
             const result = await options.model.findAll({
                 limit: take,
                 offset: offset,
-                include: [{
-                    association: association,
-                    include: [include]
-                }]
+                include: include
             });
             const totalCount = await options.model.count({
                 ...(this.include ? {include: this.include} : {})
