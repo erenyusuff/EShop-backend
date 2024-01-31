@@ -1,5 +1,6 @@
 import {Injectable} from '@nestjs/common';
 import {PaginateOptions} from "./paginate.intercase";
+import {FindAndCountOptions} from "@sequelize/core";
 
 @Injectable()
 export class PaginationService {
@@ -10,7 +11,7 @@ export class PaginationService {
 
     private static include = [];
 
-    static async findAllPaginate(options: PaginateOptions): Promise<any> {
+    static async findAllPaginate(options: PaginateOptions,optionsSequelize: FindAndCountOptions = {}): Promise<any> {
 
         const take = options.take || this.options.defaultLimit;
         const page = options.page || this.options.defaultPage || 1;
@@ -18,7 +19,22 @@ export class PaginationService {
         const include = options.include || ''
         this.include = [];
 
-
+        if (!optionsSequelize.order) {
+            if (options.sort) {
+                const sortInfo = JSON.parse(options.sort);
+                if (Array.isArray(sortInfo)) {
+                    optionsSequelize.order = sortInfo.map(sortItem => {
+                        const field = sortItem.selector;
+                        const sortDirection = sortItem.desc ? 'DESC' : 'ASC';
+                        return [field, sortDirection];
+                    });
+                } else if (sortInfo && sortInfo.selector) {
+                    const field = sortInfo.selector;
+                    const sortDirection = sortInfo.desc ? 'DESC' : 'ASC';
+                    optionsSequelize.order = [[field, sortDirection]];
+                }
+            }
+        }
 
         if( include != '') {
             console.log(include)
@@ -31,7 +47,6 @@ export class PaginationService {
                 ...(this.include ? {include: this.include} : {})
             });
 
-            const sort = await options.sort
 
             const totalPages = Math.ceil(totalCount / take);
             const data: any[] = result;
@@ -47,7 +62,9 @@ export class PaginationService {
                 data,
                 totalCount,
                 meta,
+
             };
+
         }
 
 else {
