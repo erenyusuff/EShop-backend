@@ -15,4 +15,6 @@ export interface PaginateOptions {
     take?: number;
     filter?: string;
     sort?: string;
+    include?: string
+    association?: string
 }

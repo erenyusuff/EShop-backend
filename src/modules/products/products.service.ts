@@ -9,7 +9,7 @@ import {PaginateQueryInterface} from "../../core/database/paginate.intercase";
 export class ProductsService {
     constructor(
         @InjectModel(Product)
-        private readonly productModel: typeof Product,
+        private readonly productModel: typeof Product
     ) {
     }
 
@@ -45,7 +45,7 @@ export class ProductsService {
     async findAll(paginateQuery?: PaginateQueryInterface): Promise<Product[]> {
         return PaginationService.findAllPaginate({
             ...paginateQuery,
-            model: this.productModel,
+            model: this.productModel
         });
     }
 
@@ -70,8 +70,6 @@ export class ProductsService {
         return this.productModel.findAll({
             where: {id: id},
         });
-
-
     }
 
     findOne(id: string): Promise<Product> {

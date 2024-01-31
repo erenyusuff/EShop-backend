@@ -23,6 +23,7 @@ export class OrdersService {
         });
     }
 
+
     update(updateOrderDto: UpdateOrderDto) {
         return this.orderModel.update({
             status: updateOrderDto.status
@@ -32,14 +33,20 @@ export class OrdersService {
 
     async findAll(paginateQuery?: PaginateQueryInterface): Promise<Order[]> {
         console.log(paginateQuery)
-        // return this.orderModel.findAll({
-        //     include: [{
-        //         association: 'user'
-        //     }]
-        // });
         return PaginationService.findAllPaginate({
             ...paginateQuery,
-            model: this.orderModel
+            model: this.orderModel,
+            take: 10
+        });
+    }
+    async findAll2(paginateQuery?: PaginateQueryInterface): Promise<Order[]> {
+        console.log(paginateQuery)
+        return PaginationService.findAllPaginate({
+            ...paginateQuery,
+            model: this.orderModel,
+            take: 20,
+            include: 'cartProducts',
+            association: 'cart'
         });
 
     }

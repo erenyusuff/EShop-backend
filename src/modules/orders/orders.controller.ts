@@ -1,10 +1,11 @@
-import {Body, Controller, Delete, Get, Param, Patch, Post, Request} from '@nestjs/common';
+import {Body, Controller, Delete, Get, Param, Patch, Post, Query, Request} from '@nestjs/common';
 import {CreateOrderDto} from './dto/create-order.dto';
 import {Order} from './models/order.model';
 import {OrdersService} from './orders.service';
 import {UpdateOrderDto} from "./dto/update-order.dto";
 import {PaginateQuery} from "../../core/database/paginate.decorator";
 import {PaginateQueryInterface} from "../../core/database/paginate.intercase";
+import {Product} from "../products/models/product.model";
 
 @Controller('orders')
 export class OrdersController {
@@ -21,11 +22,11 @@ export class OrdersController {
         return this.ordersService.update(updateOrderDto)
     }
 
-    // @Get()
-    // findAll(): Promise<Order[]> {
-    //     return this.ordersService.findAll();
-    // }
-    //
+    @Get('all')
+    findAll2(@PaginateQuery('all') paginateQuery?: PaginateQueryInterface,): Promise<any> {
+        return this.ordersService.findAll2(paginateQuery);
+    }
+
 
     // @Get(':id')
     // findOne(@Param('id') id: string): Promise<Order> {
@@ -34,15 +35,14 @@ export class OrdersController {
 
     @Get('myOrders')
     findMyOrders(@Request() req): any {
-        console.log('test')
         return this.ordersService.findCurrentUsersOrdersByToken(req);
     }
-    @Get('all')
-    findAllOrders(
-        @PaginateQuery('all') paginateQuery?: PaginateQueryInterface,
-    ): Promise<any> {
+    @Get('page')
+    findAll(@Query('page')page: string, @PaginateQuery('all') paginateQuery?: PaginateQueryInterface,): Promise<any> {
+        console.log(page)
         return this.ordersService.findAll(paginateQuery);
     }
+
 
     @Delete(':id')
     remove(@Param('id') id: string): Promise<void> {
